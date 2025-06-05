@@ -358,4 +358,54 @@ async function downloadPDF() {
   doc.save('registration-summary.pdf');
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const userIconContainer = document.getElementById('userIconContainer');
+  const userNameDisplay = document.getElementById('userNameDisplay');
+  const userIcon = document.getElementById('userIcon');
+  const userDropdown = document.getElementById('userDropdown');
+
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+  if (loggedInUser && loggedInUser.username) {
+    userNameDisplay.textContent = loggedInUser.username;
+    userIconContainer.style.display = 'block';
+
+    userIcon.addEventListener('click', () => {
+      userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userIconContainer.contains(e.target)) {
+        userDropdown.style.display = 'none';
+      }
+    });
+  } else {
+    userIconContainer.style.display = 'none';
+  }
+});
+
+function logout() {
+  Swal.fire({
+    title: 'Are you sure you want to log out?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, log me out',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#3b82f6',
+    cancelButtonColor: '#aaa'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem('loggedInUser');
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged Out',
+        text: 'You have successfully logged out.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#3b82f6'
+      }).then(() => {
+        window.location.href = '../Loginweb/LoginPage.html';
+      });
+    }
+  });
+}
 

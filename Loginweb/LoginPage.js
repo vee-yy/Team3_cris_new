@@ -5,11 +5,11 @@ function isValidEmail(email) {
 
 function SignUp() {
   const form = document.getElementById('signupForm');
-  const fullName = form.querySelector('input[type="text"]').value.trim();
+  const username = form.querySelector('input[name="username"]').value.trim(); 
   const email = form.querySelector('input[type="email"]').value.trim();
   const password = form.querySelector('input[type="password"]').value.trim();
 
-  if (!fullName || !email || !password) {
+  if (!username || !email || !password) {
     Swal.fire({
       icon: 'warning',
       title: 'Incomplete Information',
@@ -42,16 +42,16 @@ function SignUp() {
     return;
   }
 
-  users.push({ email, password, fullName });
+  users.push({ email, password, username });
   localStorage.setItem('users', JSON.stringify(users));
-
+  console.log('Users saved:', JSON.parse(localStorage.getItem('users')));
   Swal.fire({
     icon: 'success',
     title: 'Account Created',
     text: 'You can now log in with your credentials.',
     confirmButtonText: 'OK'
   }).then(() => {
-    toggleForms(); // Switch to the login form
+    toggleForms();
   });
 }
 
@@ -84,13 +84,19 @@ function LogIn() {
   const foundUser = users.find(user => user.email === email && user.password === password);
 
   if (foundUser) {
+    // Save logged-in user info (maybe just name and email)
+    localStorage.setItem('loggedInUser', JSON.stringify({
+      username: foundUser.username,
+      email: foundUser.email
+    }));
+
     Swal.fire({
       icon: 'success',
       title: 'Welcome Back!',
-      text: `Welcome, ${foundUser.fullName}!`,
+      text: `Welcome, ${foundUser.username}!`,
       confirmButtonText: 'OK'
     }).then(() => {
-      window.location.href = "../Certification/Certificate.html"; // Redirect after login
+      window.location.href = "../Certification/Certificate.html"; 
     });
   } else {
     Swal.fire({
