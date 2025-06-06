@@ -50,6 +50,43 @@ body{
   border: 2px solid #ecf0f1;
 }
 
+#userIconContainer {
+  display: none;
+  position: relative; /* Important for dropdown positioning */
+}
+
+#userIcon {
+  font-size: 28px;
+  cursor: pointer;
+  color: #3b82f6;
+}
+
+#userDropdown {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 100;
+}
+
+#userDropdown p {
+  margin: 0 0 5px;
+}
+
+#userDropdown button {
+  padding: 4px 10px;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
 .search-tab {
   position: absolute;
   left: 50%;
