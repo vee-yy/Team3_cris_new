@@ -195,7 +195,6 @@ function showStep(step) {
   downloadBtn.style.display = step === steps.length - 1 ? 'inline-block' : 'none';
 }
 
-// Validate all visible inputs in the active certificate type section
 function validateStep1() {
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
@@ -218,7 +217,6 @@ function validateStep1() {
   return true;
 }
 
-//Generate the summary of inputs for the selected certificate type and download as PDF basta ayon jusko po
 function generateSummary() {
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
@@ -255,40 +253,48 @@ prevBtn.addEventListener('click', () => {
 });
 
 downloadBtn.addEventListener('click', () => {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
   const section = document.getElementById(sectionId);
   if (!section) return;
 
-  doc.setFontSize(14);
-  doc.text('Certificate Registration Summary', 10, 10);
-  doc.text(`Certificate Type: ${certType}`, 10, 20);
+  document.getElementById('pdfCertType').textContent = certType;
+  const pdfDetails = document.getElementById('pdfDetails');
+  pdfDetails.innerHTML = '';
 
-  let y = 30;
   section.querySelectorAll('input, textarea, select').forEach(input => {
     const label = input.getAttribute('placeholder') || input.name || input.id || 'Field';
-    const value = input.value.trim() || 'Not provided';
-    doc.text(`${label}: ${value}`, 10, y);
-    y += 10;
+    const value = input.value.trim() || '<em>Not provided</em>';
+    pdfDetails.innerHTML += `
+      <p style="margin: 4px 0;">
+        <strong>${label}:</strong> ${value}
+      </p>`;
   });
 
-  doc.save('registration-summary.pdf');
+  const template = document.getElementById('pdfTemplate');
+  template.style.display = 'block'; 
+
+  html2canvas(template).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const width = pdf.internal.pageSize.getWidth();
+    const height = (canvas.height * width) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+    pdf.save('certificate-summary.pdf');
+    template.style.display = 'none';
+  });
 });
+
 
 let registrationCount = 0;
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-
-// Increment count each time form is submitted
   registrationCount++;
 
-// Format ID with leading zeros, e.g., REG-00001
   const idNumber = `REG-${String(registrationCount).padStart(5, '0')}`;
-
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
   const section = document.getElementById(sectionId);
@@ -298,12 +304,10 @@ form.addEventListener('submit', e => {
   const lastName = section.querySelector('input[placeholder="Last Name"]')?.value.trim() || '';
   const middleInitial = section.querySelector('input[placeholder="Middle Initial"]')?.value.trim() || '';
   const suffix = section.querySelector('input#suffix')?.value.trim() || '';
-
   const fullName = [firstName, middleInitial && middleInitial + '.', lastName, suffix].filter(Boolean).join(' ').trim();
-
   const tableBody = document.querySelector('#registrationTableBody');
-  if (!tableBody) return;
 
+  if (!tableBody) return;
   const newRow = document.createElement('tr');
   newRow.innerHTML = `
     <td>${idNumber}</td>
@@ -316,7 +320,7 @@ form.addEventListener('submit', e => {
   Swal.fire({
     icon: 'success',
     title: 'Thank you for your cooperation!',
-    text: 'Kindly check your email to verify the payment and updates of your registration.',
+    text: 'Kindly check your email for updates of your registration.',
     confirmButtonColor: '#3b82f6'
   }).then(() => {
     closeForm();
@@ -390,7 +394,7 @@ function logout() {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes, log me out',
-    cancelButtonText: 'Cancel',
+    cancelButtonText: 'Discard',
     confirmButtonColor: '#3b82f6',
     cancelButtonColor: '#aaa'
   }).then((result) => {

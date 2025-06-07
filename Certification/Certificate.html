@@ -6,6 +6,7 @@
     <title>Certificate</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -265,7 +266,7 @@
 
         <label>Suffix (If any)</label>
         <div class="suffix-container">
-          <input type="text" id="birthSuffix" name="birthSuffix" maxlength="5" placeholder="Jr. Sr. III, IV" />
+          <input type="text" id="birthSuffix" name="birthFatherSuffix" maxlength="5" placeholder="Jr. Sr. III, IV" />
         </div>
         </div>
 
@@ -633,7 +634,12 @@
     </table>
   </div>
 </div>
-
+<div id="pdfTemplate">
+  <h2>Certificate Registration Summary</h2>
+  <p><strong>Certificate Type:</strong> <span id="pdfCertType"></span></p>
+  <div id="pdfDetails"></div>
+  <p class="pdf-note">* This is a system-generated summary. Please keep it for your records.</p>
+</div>
     <script src="Certificate.js"> </script>
 </body>
 </html>
