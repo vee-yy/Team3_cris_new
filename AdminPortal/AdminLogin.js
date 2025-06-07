@@ -28,23 +28,19 @@ loginForm.addEventListener('submit', function (e) {
     errorMessage.style.display = 'none';
     successMessage.style.display = 'none';
 
-    // Check credentials immediately
     if (username === ADMIN_CREDENTIALS.username && passwordValue === ADMIN_CREDENTIALS.password) {
         successMessage.style.display = 'block';
         successMessage.textContent = "Login successful! Redirecting...";
 
-        // Optional: store session flag
         sessionStorage.setItem("isAdmin", "true");
 
-        // Redirect after short feedback
         setTimeout(() => {
             window.location.href = 'AdminDashboard.html';
         }, 1000);
 
-        return; // Stop further code execution
+        return; 
     }
 
-    // If credentials are incorrect
     errorMessage.style.display = 'block';
     errorMessage.textContent = "Incorrect username or password.";
     loginBtn.disabled = false;

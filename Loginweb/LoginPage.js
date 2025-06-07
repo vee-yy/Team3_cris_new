@@ -7,7 +7,7 @@ function SignUp() {
   const form = document.getElementById('signupForm');
   const username = form.querySelector('input[name="username"]').value.trim(); 
   const email = form.querySelector('input[type="email"]').value.trim();
-  const password = form.querySelector('input[type="password"]').value.trim();
+  const password = document.getElementById('password').value.trim();
 
   if (!username || !email || !password) {
     Swal.fire({
@@ -58,7 +58,7 @@ function SignUp() {
 function LogIn() {
   const form = document.getElementById('loginForm');
   const email = form.querySelector('input[type="email"]').value.trim();
-  const password = form.querySelector('input[type="password"]').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
 
   if (!email || !password) {
     Swal.fire({

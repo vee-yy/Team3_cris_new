@@ -1,10 +1,8 @@
-  let sampleData = [];  // will hold data from server
-
-  // Current state
+  let sampleData = [];  
   let currentState = {
     page: 1,
     pageSize: 10,
-    totalItems: 0,  // updated after data loads
+    totalItems: 0,
     sortColumn: 'id',
     sortDirection: 'asc',
     searchQuery: '',
@@ -27,25 +25,16 @@
       });
   });
 
-  function renderTable() {
-    // Filter and sort data based on current state
+function renderTable() {
     let filteredData = filterData(sampleData);
     filteredData = sortData(filteredData);
-
-    // Update totalItems for pagination info
     currentState.totalItems = filteredData.length;
-
-    // Paginate data
     const paginatedData = paginateData(filteredData);
-
-    // Update table
     const tbody = document.getElementById('dataBody');
     tbody.innerHTML = '';
-
     paginatedData.forEach(item => {
       const row = document.createElement('tr');
 
-      // Determine status class
       const statusClass = `badge-${item.status}`;
       const typeDisplay = {
         'birth': 'Birth Certificate',
@@ -76,16 +65,9 @@
 
       tbody.appendChild(row);
     });
-
-    // Update pagination info
     updatePaginationInfo(currentState.totalItems);
-  }
-
-  // The rest of your helper functions (filterData, sortData, paginateData, updatePaginationInfo, setupEventListeners, formatDate, capitalizeFirstLetter) 
-  // remain the same, just make sure they are inside this script tag
-
-  // For example:
-  function filterData(data) {
+}
+function filterData(data) {
     return data.filter(item => {
       const matchesSearch = currentState.searchQuery === '' ||
         item.name.toLowerCase().includes(currentState.searchQuery.toLowerCase()) ||
@@ -104,7 +86,12 @@
         item.status === currentState.statusFilter;
 
       return matchesSearch && matchesDate && matchesType && matchesStatus;
-    });
-  }
-
-  // (include all the rest of your functions here as before)
+  });
+}
+function logout() {
+    sessionStorage.removeItem("isAdmin");
+    window.location.href = 'AdminLogin.html';
+}
+function website() {
+      window.location.href = "../Certification/Certificate.html"; 
+}

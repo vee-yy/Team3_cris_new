@@ -8,7 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="Certificate.css">
 </head>
@@ -203,7 +204,8 @@
       <!-- Birth Certificate Fields -->
       <div id="birthFields" class="type-fields">
         <div class="user">
-        <label id="info">Child's Information</label>
+        <label id="info">Child's Information</label><br><br>
+        <label>Child's Name</label>
         <div class="name-group">
           <input type="text" id="birthFirstName" name="birthFirstName" placeholder="First Name" />
           <input type="text" id="birthLastName" name="birthLastName" placeholder="Last Name" />
@@ -597,18 +599,17 @@
           <input type="number" id="cenodeathCopiesNeeded" name="cenodeathCopiesNeeded" placeholder="Number of copies needed" />
         </div>
   </div>
-          <button type="button" id="nextBtn" onclick="changeStep(1)">Next</button>
+
+        <button type="button" id="nextBtn" onclick="changeStep(1)"> Next &#8594; </button>
 
   </div>
 
   <!-- Step 2: Review -->
   <div class="form-step" data-step="1">
-    <h3>Review Your Information</h3>
-    <p>Please verify all your data before submitting.</p>
     <div id="reviewSummary" class="review-summary"></div>
-    <button type="button" id="prevBtn">Previous</button>
-    <button type="button" id="downloadBtn">Download PDF</button>
-    <button type="submit" id="submitBtn">Submit</button>
+    <button type="button" id="prevBtn"> &#8592;	Previous</button>
+    <button type="button" id="downloadBtn">Download PDF <i class="fas fa-download"></i></button>
+    <button type="submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit</button>
 </div>
   </div>
 </form>
@@ -634,12 +635,16 @@
     </table>
   </div>
 </div>
+
 <div id="pdfTemplate">
-  <h2>Certificate Registration Summary</h2>
-  <p><strong>Certificate Type:</strong> <span id="pdfCertType"></span></p>
-  <div id="pdfDetails"></div>
+  <div class="pdf-body">
+    <h2>Certificate Registration Summary</h2>
+    <p style="font-size: 18px;"><strong>CERTIFICATE TYPE: </strong> <span id="pdfCertType"></span></p>
+    <div id="pdfDetails"></div>
+  </div>
   <p class="pdf-note">* This is a system-generated summary. Please keep it for your records.</p>
 </div>
+
     <script src="Certificate.js"> </script>
 </body>
 </html>
