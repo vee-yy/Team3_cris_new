@@ -229,7 +229,7 @@ function validateStep1() {
 
 const inputs = section.querySelectorAll('input, select, textarea');
 
-/*
+
 for (const input of inputs) {
   const skipFields = ['Middle Name', 'Suffix', "Mother's Middle Name", "Father's Middle Name", 'Jr. Sr. III, IV'];
   const identifier = input.placeholder;
@@ -249,7 +249,7 @@ for (const input of inputs) {
     return false;
   }
 }
-*/
+
   return true;
 }
 

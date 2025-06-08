@@ -84,7 +84,6 @@ function LogIn() {
   const foundUser = users.find(user => user.email === email && user.password === password);
 
   if (foundUser) {
-    // Save logged-in user info (maybe just name and email)
     localStorage.setItem('loggedInUser', JSON.stringify({
       username: foundUser.username,
       email: foundUser.email
@@ -107,7 +106,6 @@ function LogIn() {
     });
   }
 }
-
 
 function toggleForms() {
   const signupBox = document.getElementById("signupBox");

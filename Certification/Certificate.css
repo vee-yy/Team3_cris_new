@@ -579,6 +579,18 @@ textarea {
   padding: 20px;
 }
 
+.delivery-info{
+  background-color: #eff6ff;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+#deliveryOption{
+  width: 30%;
+}
+
 /* Birth Birthdate - Place of Birth - Purpose */
 
 #info{
@@ -650,7 +662,6 @@ label[for="birthOrientation"] {
   display: flex;
   flex-direction: column;
 }
-/* Birth purpose End */
 
 #marriageFields label {
   font-weight: bold;
