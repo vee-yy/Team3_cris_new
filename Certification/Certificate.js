@@ -178,11 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const maxDate = `${year}-${month}-${day}`;
 
   dateInputs.forEach(input => {
-    input.removeAttribute('min');        // Allow any past date
-    input.max = maxDate;                 // Prevent future dates
-
-    input.addEventListener('keydown', e => e.preventDefault()); // Disable typing
-
+    input.removeAttribute('min');        
+    input.max = maxDate;
+    input.addEventListener('keydown', e => e.preventDefault());
     input.addEventListener('change', (e) => {
       const selectedDate = new Date(e.target.value);
       const todayCheck = new Date();
