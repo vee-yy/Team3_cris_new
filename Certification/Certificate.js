@@ -318,6 +318,8 @@ prevBtn.addEventListener('click', () => {
   showStep(currentStep);
 });
 
+downloadBtn.type = 'button';
+
 downloadBtn.addEventListener('click', () => {
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
@@ -349,6 +351,7 @@ downloadBtn.addEventListener('click', () => {
 
     pdf.addImage(imgData, 'PNG', 0, 0, width, height);
     pdf.save('certificate-summary.pdf');
+    
     template.style.display = 'none';
   });
 });
