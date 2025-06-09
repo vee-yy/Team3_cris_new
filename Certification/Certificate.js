@@ -87,7 +87,7 @@ function openForm(type) {
           <li style="margin-bottom: 0.5rem;">Ensure all information provided is accurate and truthful</li>
           <li style="margin-bottom: 0.5rem;">Only upload valid and authentic supporting documents</li>
           <li style="margin-bottom: 0.5rem;">Settle any applicable fees in a timely manner</li>
-          <li><strong>Please allow 3–5 business days for processing</strong></li>
+          <li style="margin-bottom: 0.5rem;"><strong>Please allow 3–5 business days for processing</strong></li>
           <li>If a field does not apply to you, enter <strong>N/A.</strong></li>
         </ul>
       <div style="margin-top: 1.5rem;">
@@ -168,40 +168,43 @@ const sectionMap = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dateInputs = document.querySelectorAll('.input-group');
+  const dateInputs = document.querySelectorAll('input[type="date"]');
 
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
 
-  const minDate = `${year}-01-01`;
   const maxDate = `${year}-${month}-${day}`;
 
   dateInputs.forEach(input => {
-    input.min = minDate;
-    input.max = maxDate;
-    input.addEventListener('keydown', e => e.preventDefault());
+    input.removeAttribute('min');        // Allow any past date
+    input.max = maxDate;                 // Prevent future dates
+
+    input.addEventListener('keydown', e => e.preventDefault()); // Disable typing
+
     input.addEventListener('change', (e) => {
       const selectedDate = new Date(e.target.value);
-      today.setHours(0, 0, 0, 0);
+      const todayCheck = new Date();
+      todayCheck.setHours(0, 0, 0, 0);
 
-      if (selectedDate > today) {
-       Swal.fire({
-        toast: true,
-        background: '#f8d7da',
-        icon: 'error',
-        title: 'Future dates are not allowed',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
-      });
+      if (selectedDate > todayCheck) {
+        Swal.fire({
+          toast: true,
+          background: '#f8d7da',
+          icon: 'error',
+          title: 'Future dates are not allowed',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true
+        });
 
         e.target.value = '';
       }
     });
   });
 });
+
 function showStep(step) {
   steps.forEach((el, idx) => {
     el.style.display = idx === step ? 'block' : 'none';
