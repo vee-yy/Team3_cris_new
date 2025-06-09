@@ -143,6 +143,9 @@ function showPopupForm(type) {
   if (section) section.style.display = 'block';
 
   resetFormAndStepper();
+
+  currentStep = 0;
+  showStep(currentStep);
 }
 function closeForm() {
   const popup = document.getElementById('popupForm');
