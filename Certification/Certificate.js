@@ -62,21 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
     });
  }
-});
-function openHomePopup() {
-  Swal.fire({ 
-    icon: 'info', 
-    title: 'Home', 
-    text: 'This is the Home section.' });
-}
+})
 
 function openAboutPopup() {
-  Swal.fire({ icon: 'info', title: 'About Us', text: 'This is the About Us section.' });
+  window.location.href = '../AboutUS/AboutUs.html';
 }
 
-function openContactPopup() {
-  Swal.fire({ icon: 'info', title: 'Contact Us', text: 'This is the Contact Us section.' });
-}
 
 function openOtherCertificateAlert(){
   Swal.fire({
@@ -96,7 +87,7 @@ function openForm(type) {
           <li style="margin-bottom: 0.5rem;">Ensure all information provided is accurate and truthful</li>
           <li style="margin-bottom: 0.5rem;">Only upload valid and authentic supporting documents</li>
           <li style="margin-bottom: 0.5rem;">Settle any applicable fees in a timely manner</li>
-          <li><strong>Please allow 3–10 business days for processing</strong></li>
+          <li><strong>Please allow 3–5 business days for processing</strong></li>
           <li>If a field does not apply to you, enter <strong>N/A.</strong></li>
         </ul>
       <div style="margin-top: 1.5rem;">

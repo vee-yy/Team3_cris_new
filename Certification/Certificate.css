@@ -9,6 +9,7 @@ body{
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding-bottom: 45vh;
 }
+
 /* HEADER - START */
 .head {
   display: flex;
@@ -17,7 +18,7 @@ body{
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   transition: 0.5s ease;
   padding: 10px 20px;
-  min-height: 80px;
+  min-height: 85px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -26,6 +27,24 @@ body{
 .header-right{
   flex: 1;
 }
+
+.header-main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.logo-container {
+  display: flex;
+}
+
+.logo {
+  height: 80px;
+  margin-left: 10px;
+}
+
+
 
 .nav-links {
   flex: 1;
@@ -62,7 +81,7 @@ body{
 }
 
 #userDropdown {
-  display: none;
+  display: flex;
   position: absolute;
   top: 35px;
   right: 0;
@@ -71,21 +90,21 @@ body{
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 10px;
-  z-index: 100;
-}
-
-#userDropdown p {
-  margin: 0 0 5px;
+  z-index: 1000;
+  width: 250px;
+  padding: 20px;
+  font-size: 16px;
+  gap: 20px;
 }
 
 #userDropdown button {
   padding: 4px 10px;
-  background-color: #f5f5f5;
+  background-color: #007BFF;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  
 }
-
 
 .search-tab {
   position: absolute;
