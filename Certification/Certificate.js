@@ -65,9 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function openAboutPopup() {
-  window.location.href = '../AboutUS/AboutUs.html';
+window.location.href = '../AboutUs/AboutUs.html';
 }
-
 
 function openOtherCertificateAlert(){
   Swal.fire({
