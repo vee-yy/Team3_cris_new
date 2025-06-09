@@ -117,6 +117,7 @@ function openForm(type) {
   });
 }
 
+
 function showPopupForm(type) {
   const popup = document.getElementById('popupForm');
   if (!popup) return;
@@ -142,17 +143,52 @@ function showPopupForm(type) {
   const section = document.getElementById(showId);
   if (section) section.style.display = 'block';
 
-  resetFormAndStepper();
-
   currentStep = 0;
+
+  resetFormAndStepper();
   showStep(currentStep);
 }
+
+function resetFormAndStepper() {
+  if (form) form.reset();
+  document.getElementById('reviewSummary').innerHTML = '';
+
+  showStep(currentStep);
+}
+
+
 function closeForm() {
   const popup = document.getElementById('popupForm');
   if (popup) popup.style.display = 'none';
   certificateForm?.reset();
   resetFormAndStepper();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const closeFormBtn = document.getElementById('closeFormBtn');
+
+  if (closeFormBtn) {
+    closeFormBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      Swal.fire({
+        title: 'Do you really want to exit?',
+        text: 'Your changes will not be saved.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Discard',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3b82f6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          closeForm();
+        }
+      });
+    });
+  }
+});
+
 
 const form = document.getElementById('certificateForm');
 const steps = document.querySelectorAll('.form-step');
@@ -439,4 +475,11 @@ function logout() {
     }
   });
 }
+// outside dom //
+form.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+});
+
 
