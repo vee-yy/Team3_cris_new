@@ -152,7 +152,7 @@ function resetFormAndStepper() {
   if (form) form.reset();
   document.getElementById('reviewSummary').innerHTML = '';
 
-  showStep(currentStep);
+  showStep(0); // Always start at the first step
 }
 
 
@@ -188,10 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
 const form = document.getElementById('certificateForm');
 const steps = document.querySelectorAll('.form-step');
 const nextBtn = document.getElementById('nextBtn');
+const verificationPrevBtn = document.getElementById('verificationPrevBtn');
 const prevBtn = document.getElementById('prevBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 
@@ -242,14 +242,33 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function showStep(step) {
+  const steps = document.querySelectorAll('.form-step'); // move this inside to refresh each time
   steps.forEach((el, idx) => {
-    el.style.display = idx === step ? 'block' : 'none';
+    if (el) {
+      el.style.display = idx === step ? 'block' : 'none';
+    }
   });
-  prevBtn.disabled = step === 0;
-  nextBtn.style.display = step === steps.length - 1 ? 'none' : 'inline-block';
-  form.querySelector('button[type="submit"]').style.display = step === steps.length - 1 ? 'inline-block' : 'none';
-  downloadBtn.style.display = step === steps.length - 1 ? 'inline-block' : 'none';
+
+  const progressSteps = document.querySelectorAll('.progressbar li');
+  progressSteps.forEach((li, index) => {
+    li.classList.remove('active', 'current');
+    if (index < step) {
+      li.classList.add('active');
+    } else if (index === step) {
+      li.classList.add('current');
+    }
+  });
+
+  // Button visibility
+  if (nextBtn) nextBtn.style.display = (step === 0 || step === 1) ? 'inline-block' : 'none';
+  if (prevBtn) prevBtn.style.display = step > 0 ? 'inline-block' : 'none';
+  if (verificationPrevBtn) verificationPrevBtn.style.display = step === 2 ? 'inline-block' : 'none';
+
+  const submitBtn = form.querySelector('button[type="submitBtn"]');
+  if (submitBtn) submitBtn.style.display = step === 4 ? 'inline-block' : 'none';
+  if (downloadBtn) downloadBtn.style.display = step === 2 ? 'inline-block' : 'none';
 }
+
 
 function validateStep1() {
   const certType = document.getElementById('certificateType').value;
@@ -283,6 +302,20 @@ for (const input of inputs) {
   return true;
 }
 
+function validateStep2() {
+  const idImageInput = document.getElementById('idImage');
+  if (!idImageInput || !idImageInput.files || idImageInput.files.length === 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Validation Error',
+      text: 'Please upload your ID or document for verification.',
+      confirmButtonColor: '#3b82f6'
+    });
+    return false;
+  }
+  return true;
+}
+
 function generateSummary() {
   const certType = document.getElementById('certificateType').value;
   const sectionId = sectionMap[certType];
@@ -305,18 +338,49 @@ function generateSummary() {
   document.getElementById('reviewSummary').innerHTML = summaryHTML;
 }
 
-nextBtn.addEventListener('click', () => {
-  if (!validateStep1()) return;
-
-  generateSummary();
-  currentStep = 1;
-  showStep(currentStep);
-});
-
+// Event listeners for buttons
 prevBtn.addEventListener('click', () => {
-  currentStep = 0;
+  currentStep--;
   showStep(currentStep);
 });
+
+verificationPrevBtn.addEventListener('click', () => {
+  currentStep = 1; // Go back to the Information step
+  showStep(currentStep);
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentStep === 0) {
+    if (validateStep1()) {
+      currentStep = 1;
+      showStep(currentStep);
+    }
+  } else if (currentStep === 1) {
+    if (validateStep2()) {
+      currentStep = 2;
+      generateSummary(); // ← add this
+      showStep(currentStep);
+    }
+  } else if (currentStep === 2) {
+    currentStep = 3;  // move to final step
+    showStep(currentStep);
+  }
+});
+const nextStep2Btn = document.getElementById('nextStep2Btn');
+
+if (nextStep2Btn) {
+  nextStep2Btn.addEventListener('click', () => {
+    if (currentStep === 1) {
+      if (validateStep2()) {
+        currentStep = 2;
+        generateSummary();
+        showStep(currentStep);
+      }
+    }
+  });
+}
+
+
 
 downloadBtn.type = 'button';
 
@@ -359,7 +423,7 @@ downloadBtn.addEventListener('click', () => {
 
 let registrationCount = 0;
 
-form.addEventListener('submit', e => {
+form.addEventListener('submitBtn', e => {
   e.preventDefault();
   registrationCount++;
 
@@ -388,8 +452,8 @@ form.addEventListener('submit', e => {
 
   Swal.fire({
     icon: 'success',
-    title: 'Thank you for your cooperation!',
-    text: 'Kindly check your email for updates of your registration.',
+    title: 'Registration Submitted Successfully!',
+    text: 'Your payment and registration have been recorded.',
     confirmButtonColor: '#3b82f6'
   }).then(() => {
     closeForm();
@@ -477,6 +541,10 @@ function logout() {
     }
   });
 }
+
+
+
+
 // outside dom //
 form.addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
@@ -485,3 +553,149 @@ form.addEventListener('keydown', function (event) {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Step 4: Payment Logic ---
+  function updateTotalPrice() {
+    const qty = parseInt(document.getElementById('quantity').value) || 1;
+    const base = 350;
+    const fee = 10;
+    const total = qty * base;
+    const final = total + fee;
+
+    document.getElementById('totalAmount').textContent = total;
+    document.getElementById('convenienceFee').textContent = fee;
+    document.getElementById('finalAmount').textContent = final;
+    document.getElementById('receiptAmount').textContent = final;
+    document.getElementById('basePrice').textContent = base; // if shown in Step 4
+  }
+
+  function updatePaymentInfo() {
+    const method = document.getElementById('paymentMethod').value;
+    const details = document.getElementById('paymentDetails');
+    const otp = document.getElementById('otpContainer');
+    otp.style.display = (method === 'E-Wallets' || method === 'Online Banking') ? 'block' : 'none';
+
+    if (method === 'E-Wallets') {
+      details.innerHTML = 'Send to GCash/PayMaya: <strong>09123456789</strong>';
+    } else if (method === 'Online Banking') {
+      details.innerHTML = 'Transfer to Bank: <strong>1234567891011</strong>';
+    } else if (method === 'Over-the-Counter') {
+      details.innerHTML = 'Pay at 7/11 or Bayad Center using Reference ID shown.';
+    } else {
+      details.innerHTML = '';
+    }
+  }
+
+  function generateReferenceId() {
+    const now = new Date();
+    const timestamp = now.getFullYear().toString() +
+      String(now.getMonth() + 1).padStart(2, '0') +
+      String(now.getDate()).padStart(2, '0') +
+      Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return `REF${timestamp}`;
+  }
+
+  function generateReceiptDetails() {
+    const now = new Date().toLocaleString();
+    document.getElementById('receiptDate').textContent = now;
+    document.getElementById('receiptReferenceId').textContent = document.getElementById('referenceId').textContent;
+    document.getElementById('receiptPaymentMethod').textContent = document.getElementById('paymentMethod').value;
+  }
+
+  // Step 3 → Step 4 transition
+  const goToPaymentBtn = document.getElementById('goToPaymentBtn');
+  if (goToPaymentBtn) {
+    goToPaymentBtn.addEventListener('click', () => {
+      const certType = document.getElementById('certificateType').value;
+      document.getElementById('paymentCertificateType').textContent = certType;
+
+      currentStep = 3;
+      showStep(currentStep);
+    });
+  }
+  // OTP Input Logic
+    document.querySelectorAll('.otp-box').forEach((box, index, boxes) => {
+    box.addEventListener('input', () => {
+      if (box.value.length === 1 && index < boxes.length - 1) {
+        boxes[index + 1].focus();
+      }
+    });
+
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && index > 0) {
+        boxes[index - 1].focus();
+      }
+    });
+  });
+
+  function getEnteredOTP() {
+    return [...document.querySelectorAll('.otp-box')].map(input => input.value).join('');
+  }
+
+  // Set initial reference ID and price
+  document.getElementById('referenceId').textContent = generateReferenceId();
+  updateTotalPrice();
+
+  // Event Listeners
+  document.getElementById('quantity').addEventListener('input', updateTotalPrice);
+  document.getElementById('paymentMethod').addEventListener('change', updatePaymentInfo);
+
+  // Step 4: Proceed to Receipt
+  document.getElementById('proceedToReceiptBtn').addEventListener('click', () => {
+    const method = document.getElementById('paymentMethod').value;
+    const otp = getEnteredOTP();
+
+    if (!method) {
+      Swal.fire({ icon: 'error', title: 'Missing Payment Method', text: 'Please select a payment method.' });
+      return;
+    }
+
+    if ((method === 'E-Wallets' || method === 'Online Banking') && otp !== '123456') {
+      Swal.fire({ icon: 'error', title: 'Invalid OTP', text: 'Please enter the correct OTP (123456).' });
+      return;
+    }
+
+    generateReceiptDetails();
+    currentStep = 4;
+    showStep(currentStep);
+  });
+// Step 5: Final Submit
+document.getElementById('submitBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  Swal.fire({
+    icon: 'success',
+    title: 'Registration Submitted Successfully!',
+    text: 'Your payment and registration have been recorded.',
+    confirmButtonColor: '#3b82f6'
+  }).then(() => {
+    form.submit(); // Or use: closeForm();
+  });
+});
+
+// Step 5: Download Receipt PDF
+document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
+  const content = document.getElementById('receiptContent');
+
+  if (!content) {
+    console.error('Receipt content not found.');
+    return;
+  }
+
+  html2canvas(content).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'pt', 'a4');
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('payment-receipt.pdf');
+  }).catch(error => {
+    console.error('Error generating receipt PDF:', error);
+  });
+});
+
+
+
+});

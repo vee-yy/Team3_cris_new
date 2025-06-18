@@ -474,6 +474,7 @@ body{
   margin: 0 auto 8px auto;
   border-radius: 50%;
   background-color: white;
+  color: gray;
 }
 
 .progressbar li:after {
@@ -492,7 +493,7 @@ body{
 }
 
 .progressbar li.active {
-  color: #27ae60;
+  color: #27ae60; /* green */
   font-weight: bold;
 }
 
@@ -502,9 +503,22 @@ body{
   color: white;
 }
 
-.progressbar li.active + li:after {
+.progressbar li.current {
+  color: #3b82f6; /* blue */
+  font-weight: bold;
+}
+
+.progressbar li.current:before {
+  border-color: #3b82f6;
+  background-color: #3b82f6;
+  color: white;
+}
+
+.progressbar li.active + li:after,
+.progressbar li.current + li:after {
   background-color: #27ae60;
 }
+
 
   /* Form START */
 
@@ -876,4 +890,122 @@ label[for="birthOrientation"] {
 
 .pdf-note p {
   margin: 0;
+}
+
+
+/* Payment Section Enhancements */
+
+/* Input Field for Quantity */
+.payment-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* Payment Method Select */
+.payment-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* OTP Boxes */
+.otp-container {
+  margin-top: 1rem;
+}
+.otp-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.otp-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+/* Button */
+#proceedToReceiptBtn {
+  font-weight: 600;
+}
+
+/* Receipt info styling */
+/* Step 5: Receipt Styling */#receiptContent {
+  max-width: 28rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#receiptContent .receipt-icon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #dcfce7;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+#receiptContent .receipt-icon i {
+  color: #16a34a;
+  font-size: 1.5rem;
+}
+
+#receiptContent .receipt-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+#receiptContent .receipt-subtext {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+#receiptContent .receipt-details p {
+  font-size: 0.875rem;
+  color: #374151;
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+#receiptContent strong {
+  color: #111827;
+  display: inline-block;
+  min-width: 8rem;
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+#receiptContent span {
+  font-weight: 500;
+  color: #111827;
+}
+
+#receiptContent .footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.75rem;
+  color: #9ca3af;
 }
