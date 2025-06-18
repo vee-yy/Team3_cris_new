@@ -764,3 +764,111 @@ footer {
     right: 20px;
   }
 }
+
+/* Appointment Section Styles */
+.appointment {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+  margin: 40px 0;
+}
+
+.appointment .container {
+  max-width: 1000px;
+}
+
+.appointment h2 {
+  text-align: center;
+  color: #0055a5;
+  margin-bottom: 15px;
+}
+
+.appointment .subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.appointment-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.appointment-step {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background: #0055a5;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.form-select, .form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.datetime-picker {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.confirmation-details {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.confirmation-details p {
+  margin: 8px 0;
+}
+
+.book-btn {
+  background: #0055a5;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.book-btn:hover {
+  background: #003d7a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .datetime-picker {
+    flex-direction: column;
+  }
+  
+  .appointment-step {
+    padding: 20px 15px;
+  }
+}
