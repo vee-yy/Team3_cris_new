@@ -67,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function () {
 function openAboutPopup() {
 window.location.href = '../AboutUs/AboutUs.html';
 }
+function openLoginPopup() {
+window.location.href = '../Loginweb/LoginPage.html';
+}
 
 function openOtherCertificateAlert(){
   Swal.fire({
@@ -423,7 +426,7 @@ downloadBtn.addEventListener('click', () => {
 
 let registrationCount = 0;
 
-form.addEventListener('submitBtn', e => {
+form.addEventListener('submit', e => {
   e.preventDefault();
   registrationCount++;
 
@@ -457,9 +460,9 @@ form.addEventListener('submitBtn', e => {
     confirmButtonColor: '#3b82f6'
   }).then(() => {
     closeForm();
-
   });
 });
+
 
 //First AAAAAAAAAAARRGGHHH
 showStep(currentStep);
@@ -668,7 +671,7 @@ document.getElementById('submitBtn').addEventListener('click', (e) => {
     text: 'Your payment and registration have been recorded.',
     confirmButtonColor: '#3b82f6'
   }).then(() => {
-    form.submit(); // Or use: closeForm();
+  form.dispatchEvent(new Event('submit')); // ✅ this triggers the proper submit handler
   });
 });
 
