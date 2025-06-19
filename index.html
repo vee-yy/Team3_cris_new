@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -96,7 +97,8 @@
             <option value="marriage">Marriage Certificate Registration</option>
             <option value="death">Death Certificate Registration</option>
             <option value="cenomar">CENOMAR Request</option>
-            <option value="correction">Document Correction</option>
+            <option value="cenodeath">CENODEATH Registration</option>
+            <option value="correction">Document Correction | R.A 9048 </option>
           </select>
         </div>
         <div class="form-group">
@@ -141,6 +143,47 @@
         <button id="confirmAppointment" class="book-btn">Confirm Appointment</button>
         <p class="note">By confirming, you agree to our <a href="#">terms of service</a></p>
       </div>
+
+            <button id="downloadReceiptBtn" style="display:none;" class="bg-blue-600 text-white px-4 py-2 rounded mt-4">
+        Download Receipt (PDF)
+      </button>
+
+      <!-- Hidden receipt content -->
+      <div id="appointmentReceipt" style="display: none;">
+        <form id="appointmentForm">
+        <h2>Appointment Receipt</h2>
+        <p><strong>ID:</strong> <span id="rID"></span></p>
+        <p><strong>Service:</strong> <span id="rService"></span></p>
+        <p><strong>Date:</strong> <span id="rDate"></span></p>
+        <p><strong>Time:</strong> <span id="rTime"></span></p>
+        <p><strong>Email:</strong> <span id="rEmail"></span></p>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<section class="announcements">
+  <div class="container">
+    <h2>Latest Announcements</h2>
+    <div class="announcement-list">
+      <div class="announcement-item">
+        <h3>System Maintenance Scheduled</h3>
+        <p class="announcement-date">Posted: June 15, 2025</p>
+        <p>Our online services will be temporarily unavailable on <strong>June 25, 2025 (9:00 PM to 3:00 AM)</strong> for system upgrades. We apologize for any inconvenience.</p>
+      </div>
+      <div class="announcement-item">
+        <h3>New Mobile App Released</h3>
+        <p class="announcement-date">Posted: June 10, 2025</p>
+        <p>Download our new mobile app for faster certificate requests and real-time notifications. Available now on <strong>Google Play Store and Apple App Store</strong>.</p>
+      </div>
+      <div class="announcement-item">
+        <h3>Extended Office Hours</h3>
+        <p class="announcement-date">Posted: June 5, 2025</p>
+        <p>To accommodate increased demand, our Quezon City office will have extended hours <strong>every Saturday in June from 8:00 AM to 2:00 PM</strong>.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -174,7 +217,7 @@
 
     <section id="register" class="registration-steps">
         <div class="container">
-            <h2>How to Register in 5 Easy Steps</h2>
+            <h2>How to Register Online in 5 Easy Steps</h2>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
@@ -222,7 +265,14 @@
                 <div class="question">
                     <h3>What certificates can I request?<i class="fas fa-chevron-down"></i></h3>
                     <div class="answer">
-                        <p>Birth, Marriage, Death, Cenomar, and Cenodeath certificates issued by the Philippine government. For other certificate kindly contact our support</p>
+                        <p>Birth, Marriage, Death, Cenomar, and Cenodeath certificates issued by the Philippine government. For other certificate kindly contact our support.</p>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>How can I submit and download the Request for Correction (R.A. 9048) form?<i class="fas fa-chevron-down"></i></h3>
+                    <div class="answer">
+                        <p>For walk-in Application. Kindly, submit the form and select <strong>Document Correction</strong> from there you can submit and download the form
+                        you will be also given an <em>Appointment ID.</em></p>
                     </div>
                 </div>
                 <div class="question">
@@ -265,7 +315,7 @@
             
             <div class="faq-questions" data-category="support">
                 <div class="question">
-                    <h3>How do I correct a submitted form?<i class="fas fa-chevron-down"></i></h3>
+                    <h3>How do I correct a form?<i class="fas fa-chevron-down"></i></h3>
                     <div class="answer">
                         <p>Edit details in your dashboard <em>before</em> payment. After submission, contact support.</p>
                     </div>
@@ -285,50 +335,56 @@
   <div class="container">
     <!-- Main Footer Content -->
     <div class="footer-content">
+
       <!-- Contact Info -->
       <div class="footer-info">
-        <h3>Need Help?</h3>
-        <p>Email us at <strong>support@civilregistry.gov.ph</strong></p>
-        <p>Call <strong>(02) 1234-5678</strong> (Mon–Fri, 8AM–5PM)</p>
-        <p>Visit us: <strong>General Araneta, Cubao, Quezon City, 1109 Metro Manila Cyberpark Tower 2, Philippines</strong></p>
-        <p><a href="#" class="text-sky-500 hover:underline">Frequently Asked Questions (FAQ)</a></p>
+        <h3>📞 Need Help?</h3>
+        <p>Email us at <strong><a href="mailto:support@civilregistry.gov.ph" style="color: skyblue;">support@civilregistry.gov.ph</a></strong></p>
+        <p>Call <strong>+1 234 567 890</strong> <br><span style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">(Mon–Fri, 8AM–5PM)</span></p>
+        <p>Visit us: <br><strong>Cyberpark Tower 2, General Araneta, Cubao, Quezon City, Metro Manila 1109</strong></p>
+        <p><a href="faq.html" style="color: skyblue; text-decoration: underline;">Frequently Asked Questions (FAQ)</a></p>
       </div>
 
       <!-- Social Media -->
       <div class="footer-social">
-        <h3>Follow us for updates:</h3>
+        <h3>📢 Follow Us</h3>
         <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
-        <p class="mt-2">Stay informed on announcements and holiday schedules.</p>
+        <p style="margin-top: 10px; color: rgba(255,255,255,0.8); font-size: 0.9rem;">Stay informed on announcements and holiday schedules.</p>
+      </div>
+
+      <!-- About Section -->
+      <div class="footer-info">
+        <h3>🏢 About Civil Registry</h3>
+        <p>We provide fast, reliable, and secure civil registration services including birth, marriage, death, and certificate issuance across the Philippines.</p>
+        <p><a href="careers.html" style="color: skyblue; text-decoration: underline;">We're hiring – Join our team!</a></p>
       </div>
     </div>
 
+    <!-- Enhanced Footer Bottom -->
+    <div class="footer-bottom">
+      <p class="powered-by">
+        &copy; 2025 Civil Registry Philippines. All rights reserved.<br>
+        <span style="display: block; margin-top: 8px;">
+          <a href="terms.html" style="color: skyblue; text-decoration: underline;">Terms of Service</a> |
+          <a href="privacy.html" style="color: skyblue; text-decoration: underline;">Privacy Policy</a> |
+          <a href="accessibility.html" style="color: skyblue; text-decoration: underline;">Accessibility</a> 
+        </span>
+        <span style="display: block; margin-top: 8px; font-style: italic; color: rgba(255,255,255,0.7); cursor: default;">
+          Empowering every Filipino through trusted digital civil services <a href="AdminPortal/AdminLogin.html" style="text-decoration: none;
+          color: rgba(255,255,255,0.7); cursor: default;"  >
+          🇵🇭 </a>
+        </span>
+      </p>
+    </div>
 
-
-      <!-- About Section -->
-<div class="footer-content mt-4" style="display: flex; flex-wrap: wrap; gap: 2rem;">
-  <!-- About Section -->
-  <div class="footer-info" style="flex: 1 1 300px;">
-    <h3>About the Civil Registry</h3>
-    <p>We are committed to providing fast, reliable, and secure civil registration <br> including birth, marriage, death, and certificate issuance across the Philippines.</p>
-    <p><a href="careers.html" class="text-blue-500 hover:underline">We're hiring – Join our team!</a></p>
-  </div>
-
-  <!-- Latest Announcements -->
-  <div class="footer-social" style="flex: 1 1 300px;">
-    <h3>Latest Announcements</h3>
-    <ul>
-      <li><a href="holidays.html" class="text-blue-500 hover:underline">June 2025 Holiday Schedule</a></li>
-      <li><a href="system-update.html" class="text-blue-500 hover:underline">New Online Features Released</a></li>
-      <li><a href="maintenance.html" class="text-blue-500 hover:underline">Scheduled Maintenance – July 1</a></li>
-    </ul>
-  </div>
-</div>
   </div>
 </footer>
+
+
 
 <!-- Feedback Popup -->
 <div id="feedbackPopup" class="feedback-popup">

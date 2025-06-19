@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       console.log('Appointment booked:', appointmentData);
-
+            
       Swal.fire({
         icon: 'success',
         title: 'Appointment Confirmed!',
@@ -341,10 +341,40 @@ document.addEventListener('DOMContentLoaded', function () {
             })}</p>
             <p><strong>Time:</strong> ${appointmentData.time}</p>
             <p>A confirmation has been sent to <strong>${appointmentData.email}</strong>.</p>
+            <button id="downloadReceiptBtnSwal" class="swal2-styled" style="margin-top: 1em; background-color: #3085d6;">
+              Download Receipt (PDF)
+            </button>
           </div>
         `,
-        confirmButtonText: 'OK'
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        didRender: () => {
+          // Populate receipt info
+          document.getElementById('rID').textContent = appointmentID;
+          document.getElementById('rService').textContent = appointmentData.service;
+          document.getElementById('rDate').textContent = new Date(appointmentData.date).toLocaleDateString();
+          document.getElementById('rTime').textContent = appointmentData.time;
+          document.getElementById('rEmail').textContent = appointmentData.email;
+
+          // Attach download functionality
+          document.getElementById('downloadReceiptBtnSwal').addEventListener('click', () => {
+            const receipt = document.getElementById('appointmentReceipt');
+            html2pdf().from(receipt).save(`Appointment_${appointmentID}.pdf`);
+          });
+        }
+      }).then(() => {
+        // Reset form after user clicks OK
+        document.getElementById('appointmentForm').reset();
+
+        // Optional: clear display summary values
+        document.getElementById('displayEmail').textContent = '';
+        document.getElementById('displayService').textContent = '';
+        document.getElementById('displayDate').textContent = '';
+        document.getElementById('displayTime').textContent = '';
       });
+
+
+
     });
   }
 });
