@@ -557,9 +557,9 @@ form.addEventListener('keydown', function (event) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Step 4: Payment Logic ---
+  // --- Payment Logic ---
   function updateTotalPrice() {
-    const qty = parseInt(document.getElementById('quantity').value) || 1;
+    const qty = parseInt(document.getElementById('quantity')?.value) || 1;
     const base = 350;
     const fee = 10;
     const total = qty * base;
@@ -569,24 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('convenienceFee').textContent = fee;
     document.getElementById('finalAmount').textContent = final;
     document.getElementById('receiptAmount').textContent = final;
-    document.getElementById('basePrice').textContent = base; // if shown in Step 4
-  }
-
-  function updatePaymentInfo() {
-    const method = document.getElementById('paymentMethod').value;
-    const details = document.getElementById('paymentDetails');
-    const otp = document.getElementById('otpContainer');
-    otp.style.display = (method === 'E-Wallets' || method === 'Online Banking') ? 'block' : 'none';
-
-    if (method === 'E-Wallets') {
-      details.innerHTML = 'Send to GCash/PayMaya: <strong>09123456789</strong>';
-    } else if (method === 'Online Banking') {
-      details.innerHTML = 'Transfer to Bank: <strong>1234567891011</strong>';
-    } else if (method === 'Over-the-Counter') {
-      details.innerHTML = 'Pay at 7/11 or Bayad Center using Reference ID shown.';
-    } else {
-      details.innerHTML = '';
-    }
+    document.getElementById('basePrice').textContent = base;
   }
 
   function generateReferenceId() {
@@ -602,8 +585,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = new Date().toLocaleString();
     document.getElementById('receiptDate').textContent = now;
     document.getElementById('receiptReferenceId').textContent = document.getElementById('referenceId').textContent;
-    document.getElementById('receiptPaymentMethod').textContent = document.getElementById('paymentMethod').value;
+    document.getElementById('receiptPaymentMethod').textContent = selectedPayment;
   }
+
+  // --- Payment Method Selection & OTP ---
+  let selectedPayment = null;
+  let otpTimers = {};
+
+  window.selectPayment = function(method) {
+    selectedPayment = method;
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('[id$="Details"]').forEach(el => el.classList.add('hidden'));
+    document.querySelector(`#${method}Details`)?.classList.remove('hidden');
+    document.querySelector(`[onclick="selectPayment('${method}')']`)?.classList.add('selected');
+  }
+
+  window.sendOTP = function(method) {
+    Swal.fire({ icon: 'success', title: 'OTP Sent!', text: 'OTP has been sent to your number.' });
+    const section = document.getElementById(`${method}OtpSection`);
+    if (section) section.classList.remove('hidden');
+    startResendCountdown(method);
+  }
+
+  window.resendOTP = function(method) {
+    sendOTP(method);
+  }
+
+  function startResendCountdown(method) {
+    let timer = 300;
+    const resendLink = document.getElementById(`resend-${method}`);
+
+    if (otpTimers[method]) clearInterval(otpTimers[method]);
+
+    resendLink.textContent = `Resend (${timer}s)`;
+    resendLink.style.pointerEvents = 'none';
+
+    otpTimers[method] = setInterval(() => {
+      timer--;
+      resendLink.textContent = `Resend (${timer}s)`;
+      if (timer <= 0) {
+        clearInterval(otpTimers[method]);
+        resendLink.textContent = 'Resend';
+        resendLink.style.pointerEvents = 'auto';
+      }
+    }, 1000);
+  }
+
+  function getEnteredOTP() {
+    return [...document.querySelectorAll('.otp-box')].map(input => input.value).join('');
+  }
+
+  window.verifyAndProceed = function() {
+    if (!selectedPayment) {
+      Swal.fire({ icon: 'error', title: 'Select a payment method first!' });
+      return;
+    }
+    if ((selectedPayment === 'ewallet' || selectedPayment === 'bank') && getEnteredOTP() !== '123456') {
+      Swal.fire({ icon: 'error', title: 'Invalid OTP', text: 'Please enter correct OTP (123456)' });
+      return;
+    }
+    generateReceiptDetails();
+    currentStep = 4;
+    showStep(currentStep);
+  }
+
+  // --- OTP Input Behavior ---
+  document.addEventListener('input', e => {
+    if (e.target.classList.contains('otp-box') && e.target.value.length === 1) {
+      const next = e.target.nextElementSibling;
+      if (next && next.classList.contains('otp-box')) next.focus();
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.target.classList.contains('otp-box') && e.key === 'Backspace' && e.target.value === '') {
+      const prev = e.target.previousElementSibling;
+      if (prev && prev.classList.contains('otp-box')) prev.focus();
+    }
+  });
 
   // Step 3 → Step 4 transition
   const goToPaymentBtn = document.getElementById('goToPaymentBtn');
@@ -611,94 +669,50 @@ document.addEventListener('DOMContentLoaded', () => {
     goToPaymentBtn.addEventListener('click', () => {
       const certType = document.getElementById('certificateType').value;
       document.getElementById('paymentCertificateType').textContent = certType;
-
       currentStep = 3;
       showStep(currentStep);
     });
   }
-  // OTP Input Logic
-    document.querySelectorAll('.otp-box').forEach((box, index, boxes) => {
-    box.addEventListener('input', () => {
-      if (box.value.length === 1 && index < boxes.length - 1) {
-        boxes[index + 1].focus();
-      }
-    });
 
-    box.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !box.value && index > 0) {
-        boxes[index - 1].focus();
-      }
+  // Step 5: Final Submit
+  document.getElementById('submitBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'success',
+      title: 'Registration Submitted Successfully!',
+      text: 'Your payment and registration have been recorded.',
+      confirmButtonColor: '#3b82f6'
+    }).then(() => {
+      form.dispatchEvent(new Event('submit'));
     });
   });
 
-  function getEnteredOTP() {
-    return [...document.querySelectorAll('.otp-box')].map(input => input.value).join('');
-  }
+  // Step 5: Download Receipt PDF
+  document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
+    const content = document.getElementById('receiptContent');
 
-  // Set initial reference ID and price
+    if (!content) {
+      console.error('Receipt content not found.');
+      return;
+    }
+
+    html2canvas(content).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('payment-receipt.pdf');
+    }).catch(error => {
+      console.error('Error generating receipt PDF:', error);
+    });
+  });
+
+  // Initialize default values
   document.getElementById('referenceId').textContent = generateReferenceId();
   updateTotalPrice();
-
-  // Event Listeners
   document.getElementById('quantity').addEventListener('input', updateTotalPrice);
-  document.getElementById('paymentMethod').addEventListener('change', updatePaymentInfo);
-
-  // Step 4: Proceed to Receipt
-  document.getElementById('proceedToReceiptBtn').addEventListener('click', () => {
-    const method = document.getElementById('paymentMethod').value;
-    const otp = getEnteredOTP();
-
-    if (!method) {
-      Swal.fire({ icon: 'error', title: 'Missing Payment Method', text: 'Please select a payment method.' });
-      return;
-    }
-
-    if ((method === 'E-Wallets' || method === 'Online Banking') && otp !== '123456') {
-      Swal.fire({ icon: 'error', title: 'Invalid OTP', text: 'Please enter the correct OTP (123456).' });
-      return;
-    }
-
-    generateReceiptDetails();
-    currentStep = 4;
-    showStep(currentStep);
-  });
-// Step 5: Final Submit
-document.getElementById('submitBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  Swal.fire({
-    icon: 'success',
-    title: 'Registration Submitted Successfully!',
-    text: 'Your payment and registration have been recorded.',
-    confirmButtonColor: '#3b82f6'
-  }).then(() => {
-  form.dispatchEvent(new Event('submit')); // ✅ this triggers the proper submit handler
-  });
-});
-
-// Step 5: Download Receipt PDF
-document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
-  const content = document.getElementById('receiptContent');
-
-  if (!content) {
-    console.error('Receipt content not found.');
-    return;
-  }
-
-  html2canvas(content).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'pt', 'a4');
-
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('payment-receipt.pdf');
-  }).catch(error => {
-    console.error('Error generating receipt PDF:', error);
-  });
-});
-
-
-
 });

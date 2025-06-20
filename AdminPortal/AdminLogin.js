@@ -12,10 +12,13 @@ const errorMessage = document.getElementById('errorMessage');
 const successMessage = document.getElementById('successMessage');
 const loginBtn = document.getElementById('loginBtn');
 
-const ADMIN_CREDENTIALS = {
-    username: "admin",
-    password: "Admin@123"
-};
+const ADMIN_ACCOUNTS = [
+  { username: "VeaSupAdmin", password: "Admin@123", role: "Super Admin" },
+  { username: "CarlcashierAdmin", password: "Cashier@123", role: "Cashier" },
+  { username: "SophiaVerifierAdmin", password: "Verify@123", role: "Verifying Officer" },
+  { username: "BillyHDOAdmin", password: "Help@123", role: "Help Desk Officer" }
+];
+
 
 loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -27,19 +30,26 @@ loginForm.addEventListener('submit', function (e) {
     loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
     errorMessage.style.display = 'none';
     successMessage.style.display = 'none';
+        const user = ADMIN_ACCOUNTS.find(
+        acc => acc.username === username && acc.password === passwordValue
+        );
 
-    if (username === ADMIN_CREDENTIALS.username && passwordValue === ADMIN_CREDENTIALS.password) {
+        if (user) {
         successMessage.style.display = 'block';
         successMessage.textContent = "Login successful! Redirecting...";
 
+        // Store session info
         sessionStorage.setItem("isAdmin", "true");
+        localStorage.setItem("adminUsername", user.username);
+        localStorage.setItem("adminRole", user.role);
 
         setTimeout(() => {
             window.location.href = 'AdminDashboard.html';
         }, 1000);
 
-        return; 
-    }
+        return;
+        }
+
 
     errorMessage.style.display = 'block';
     errorMessage.textContent = "Incorrect username or password.";

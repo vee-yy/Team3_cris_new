@@ -694,60 +694,154 @@
   </button>
 </div>
 
-<!-- Step 4: Payment -->
+<!-- STEP 4: Updated Payment UI -->
 <div class="form-step" data-step="3">
-  <h2 class="text-xl font-bold mb-4">Payment</h2>
-  <!-- Certificate Type (read-only) -->
-<p class="text-lg font-medium text-gray-800">Certificate Type: <span id="paymentCertificateType"></span></p>
+  <h2 class="payment-title">Payment Method</h2>
 
-<!-- Price per certificate (fixed) -->
-<p class="text-sm text-gray-600 mb-4">Price per Certificate: ₱<span id="basePrice">350</span></p>
+<div class="payment-methods">
+  <!-- QR CODE -->
+  <div class="payment-card qr-container" onclick="selectPayment('qr')">
+    <div class="payment-header">
+      <div class="icon-wrapper qr-icon"><i class="fas fa-qrcode"></i></div>
+      <div>
+        <h3>QR Code</h3>
+        <p>Scan to pay</p>
+      </div>
+    </div>
+    <div id="qrDetails" class="payment-details hidden">
+      <div class="qr-content">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Payment" alt="QR Code">
+        <p>Scan this QR code to complete payment</p>
+      </div>
+    </div>
+  </div>
 
-  <!-- Reference ID -->
-  <p>Reference ID: <strong id="referenceId"></strong></p>
+  <!-- E-WALLET -->
+  <div class="payment-card" onclick="selectPayment('ewallet')">
+    <div class="payment-header">
+      <div class="icon-wrapper ewallet-icon"><i class="fas fa-wallet"></i></div>
+      <div>
+        <h3>E-Wallet</h3>
+        <p>GCash, Maya</p>
+      </div>
+    </div>
+    <div id="ewalletDetails" class="payment-details hidden">
+      <select>
+        <option value="">Select E-Wallet</option>
+        <option>GCash</option>
+        <option>Maya</option>
+      </select>
+      <input type="text" id="ewalletNumber" placeholder="Account Number">
+      <button type="button" onclick="sendOTP('ewallet')">Send OTP</button>
+      <div id="ewalletOtpSection" class="otp-section hidden">
+        <p>Enter OTP sent to your mobile</p>
+        <div class="otp-inputs">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+        </div>
+      <a href="#" onclick="event.preventDefault(); resendOTP('ewallet')" id="resend-ewallet">Resend (300s)</a>
+      </div>
+    </div>
+  </div>
 
-  <!-- Quantity Input -->
-  <label for="quantity">Quantity of Certificates</label>
-  <input type="number" id="quantity" value="1" min="1" class="payment-input" oninput="updateTotalPrice()" />
+  <!-- BANK TRANSFER -->
+  <div class="payment-card" onclick="selectPayment('bank')">
+    <div class="payment-header">
+      <div class="icon-wrapper bank-icon"><i class="fas fa-university"></i></div>
+      <div>
+        <h3>Bank Transfer</h3>
+        <p>BDO, BPI, etc.</p>
+      </div>
+    </div>
+    <div id="bankDetails" class="payment-details hidden">
+      <select>
+        <option value="">Select Bank</option>
+        <option>BDO</option>
+        <option>BPI</option>
+        <option>Metrobank</option>
+      </select>
+      <input type="text" id="bankAccount" placeholder="Account Number">
+      <button type="button" onclick="sendOTP('bank')">Send OTP</button>
+      <div id="bankOtpSection" class="otp-section hidden">
+        <p>Enter OTP sent to your mobile</p>
+        <div class="otp-inputs">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+          <input type="text" maxlength="1" class="otp-box">
+        </div>
+        <p class="resend-text">Didn't receive OTP? <a href="#" onclick="resendOTP('bank')" id="resend-bank">Resend (300s)</a></p>
+      </div>
+    </div>
+  </div>
 
-  <!-- Price Summary -->
-  <div class="mt-3 mb-3">
-    <p>Total: ₱<span id="totalAmount">100</span></p>
+  <!-- OVER THE COUNTER -->
+  <div class="payment-card" onclick="selectPayment('otc')">
+    <div class="payment-header">
+      <div class="icon-wrapper otc-icon"><i class="fas fa-store"></i></div>
+      <div>
+        <h3>Over the Counter</h3>
+        <p>7/11, Bayad Center</p>
+      </div>
+    </div>
+    <div id="otcDetails" class="payment-details hidden">
+      <select>
+        <option value="">Select OTC</option>
+        <option>7/11</option>
+        <option>Bayad Center</option>
+        <option>Palawan</option>
+      </select>
+      <p>Present reference ID when paying at your selected center.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 📦 Payment Summary Section -->
+<div class="payment-summary">
+  <h3 class="summary-title">Payment Summary</h3>
+
+  <p class="summary-text">
+    Certificate Type:
+    <span id="paymentCertificateType" class="summary-highlight"></span>
+  </p>
+
+  <p class="summary-text">
+    Price per Certificate: ₱<span id="basePrice">350</span>
+  </p>
+
+  <p class="summary-text">
+    Reference ID: <strong id="referenceId"></strong>
+  </p>
+
+  <label for="quantity" class="summary-label">Quantity of Certificates</label>
+  <input
+    type="number"
+    id="quantity"
+    value="1"
+    min="1"
+    class="summary-input"
+    oninput="updateTotalPrice()"
+  />
+
+  <div class="summary-totals">
+    <p>Total: ₱<span id="totalAmount">0</span></p>
     <p>Convenience Fee: ₱<span id="convenienceFee">10</span></p>
-    <p class="font-bold">Final Amount: ₱<span id="finalAmount">110</span></p>
-  </div>
-
-  <!-- Payment Method -->
-  <label for="paymentMethod">Select Payment Method</label>
-  <select id="paymentMethod" class="payment-select" onchange="updatePaymentInfo()">
-    <option value="">-- Choose Method --</option>
-    <option value="E-Wallets">E-Wallets</option>
-    <option value="Online Banking">Online Banking</option>
-    <option value="Over-the-Counter">7/11 or Bayad Center</option>
-  </select>
-
-  <!-- Payment Info -->
-  <div id="paymentDetails" class="mb-3"></div>
-
-
-
-  <!-- OTP Section -->
-<div id="otpContainer" class="otp-container" style="display: none">
-  <label>Enter OTP (6 digits)</label>
-  <div class="otp-inputs">
-    <input type="text" maxlength="1" class="otp-box" />
-    <input type="text" maxlength="1" class="otp-box" />
-    <input type="text" maxlength="1" class="otp-box" />
-    <input type="text" maxlength="1" class="otp-box" />
-    <input type="text" maxlength="1" class="otp-box" />
-    <input type="text" maxlength="1" class="otp-box" />
+    <p class="summary-final">Final Amount: ₱<span id="finalAmount">0</span></p>
   </div>
 </div>
 
 
-  <button type="button" id="proceedToReceiptBtn" class="bg-blue-600 text-white py-2 px-4 rounded mt-4">Proceed</button>
-</div>
 
+  <div class="flex justify-end mt-6">
+    <button type="button" onclick="verifyAndProceed()" class="bg-blue-600 text-white py-2 px-6 rounded-lg">Proceed</button>
+  </div>
+</div>
 <!-- Step 5: Receipt -->
 <div class="form-step" data-step="4">
   <div id="receiptContent">
