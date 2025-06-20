@@ -715,4 +715,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('referenceId').textContent = generateReferenceId();
   updateTotalPrice();
   document.getElementById('quantity').addEventListener('input', updateTotalPrice);
+
 });
