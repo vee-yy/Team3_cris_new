@@ -14,6 +14,7 @@
 <aside class="sidebar">
   <div class="sidebar-header">
     <h2 class="Dashboard">Admin Dashboard</h2>
+    <p id="adminInfo"></p>
   </div>
   <nav class="sidebar-nav">
 
@@ -29,11 +30,13 @@
     <a href="#" class="menu-item" data-role="Super Admin">
       <i class="fas fa-database mr-2"></i> All Transactions
     </a>
-    <a href="#" class="menu-item" data-role="Super Admin">
+
+    <!-- Report Admin -->
+    <a href="#" class="menu-item" data-role="Report Officer">
       <i class="fas fa-chart-line mr-2"></i> Reports
     </a>
 
-    <!-- Cashier -->
+    <!-- Cashier Admin -->
     <a href="#" class="menu-item" data-role="Cashier">
       <i class="fas fa-money-check-alt mr-2"></i> Transaction Payments
     </a>
@@ -51,6 +54,16 @@
     <!-- Help Desk -->
     <a href="#" class="menu-item" data-role="Help Desk Officer">
       <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
+
+    <!-- Document Signatory Officer -->
+    <a href="#" class="menu-item" data-role="Document Signatory Officer">
+      <i class="fas fa-signature mr-2"></i> Signature
+    </a>
+
+    <!-- Releasing Officer -->
+    <a href="#" class="menu-item" data-role="Releasing Officer">
+      <i class="fas fa-release mr-2"></i> For Releasing Document
     </a>
 
     <!-- Shared/Logout -->
@@ -119,6 +132,10 @@
               <option value="100">100</option>
             </select>
             <span class="text-sm">entries</span>
+          </div>
+          <div class="Export-wrapper">
+            <button type="button" id="exportBtn">
+              <i class="fas fa-print"></i> Export</button>
           </div>
         </div>
         
