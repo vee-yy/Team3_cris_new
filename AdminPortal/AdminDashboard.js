@@ -14,20 +14,32 @@
   const adminRole = localStorage.getItem('adminRole') || 'Guest';
 
   document.addEventListener('DOMContentLoaded', function() {
-      // 👇 Sidebar role visibility
-  document.querySelectorAll('.menu-item').forEach(item => {
-    const role = item.dataset.role;
-    const visibleTo = item.dataset.visibleTo;
+    // Sidebar Role Admin name visibility
+      const adminUser = localStorage.getItem('adminUsername');
+      const adminRole = localStorage.getItem('adminRole');
 
-    if (role && role !== adminRole) {
-      item.style.display = 'none';
-    }
+      if (adminUser && adminRole) {
+        const infoBox = document.getElementById('adminInfo');
+        infoBox.textContent = `(${adminRole})`;
+      }
+    // Sidebar role visibility
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const role = item.dataset.role;
+      const visibleTo = item.dataset.visibleTo;
 
-    if (visibleTo === 'all') {
-      item.style.display = 'block';
-    }
-  });
-  
+      if (visibleTo === 'all') {
+        item.style.display = 'block';
+      } else if (!role) {
+        item.style.display = 'none';
+      } else if (adminRole === 'Super Admin') {
+        item.style.display = 'block';
+      } else if (role === adminRole) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
     fetch('getCertificates.php')
       .then(res => res.json())
       .then(data => {

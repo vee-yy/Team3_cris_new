@@ -13,10 +13,14 @@ const successMessage = document.getElementById('successMessage');
 const loginBtn = document.getElementById('loginBtn');
 
 const ADMIN_ACCOUNTS = [
-  { username: "VeaSupAdmin", password: "Admin@123", role: "Super Admin" },
+  { username: "LebronSuperAdmin", password: "Admin@123", role: "Super Admin" },
   { username: "CarlcashierAdmin", password: "Cashier@123", role: "Cashier" },
   { username: "SophiaVerifierAdmin", password: "Verify@123", role: "Verifying Officer" },
-  { username: "BillyHDOAdmin", password: "Help@123", role: "Help Desk Officer" }
+  { username: "BillyHDOAdmin", password: "Help@123", role: "Help Desk Officer" },
+  { username: "YasmineRCAdmin", password: "Receive@123", role: "Receiving Clerk" },
+  { username: "TinaReportsAdmin", password: "Report@123", role: "Report Officer" },
+  { username: "DerekSignatoryAdmin", password: "Sign@123", role: "Document Signatory Officer" },
+  { username: "AnnaReleaseAdmin", password: "Release@123", role: "Releasing Officer" }
 ];
 
 
