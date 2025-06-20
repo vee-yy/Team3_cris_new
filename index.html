@@ -91,7 +91,7 @@
         <h3>Your Information</h3>
                 <div class="form-group">
           <label for="serviceType">Service Needed</label>
-          <select id="serviceType" class="form-select" required>
+          <select id="serviceType" name="service" class="form-select" required>
             <option value="">-- Select Certificate --</option>
             <option value="birth">Birth Certificate Registration</option>
             <option value="marriage">Marriage Certificate Registration</option>
@@ -117,11 +117,11 @@
         <div class="datetime-picker">
           <div class="form-group">
             <label for="appointmentDate">Date</label>
-            <input type="date" id="appointmentDate" class="form-input" min="" required>
+            <input type="date" id="appointmentDate" name="date" class="form-input" min="" required>
           </div>
           <div class="form-group">
             <label for="appointmentTime">Time</label>
-            <select id="appointmentTime" class="form-select" required>
+            <select id="appointmentTime" name="time" class="form-select" required>
               <option value="">-- Select Time --</option>
               <!-- Times will be populated by JavaScript -->
             </select>
