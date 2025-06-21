@@ -11,34 +11,38 @@
     statusFilter: 'all'
   };
 
-  const adminRole = localStorage.getItem('adminRole') || 'Guest';
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Sidebar Role Admin name visibility
-      const adminUser = localStorage.getItem('adminUsername');
-      const adminRole = localStorage.getItem('adminRole');
+ document.addEventListener('DOMContentLoaded', function() {
+    const adminUser = sessionStorage.getItem('adminUsername');
+    const adminRole = sessionStorage.getItem('adminRole') || 'Guest';
 
       if (adminUser && adminRole) {
         const infoBox = document.getElementById('adminInfo');
-        infoBox.textContent = `(${adminRole})`;
+      infoBox.textContent = `${adminUser} (${adminRole})`;
       }
     // Sidebar role visibility
-    document.querySelectorAll('.menu-item').forEach(item => {
-      const role = item.dataset.role;
-      const visibleTo = item.dataset.visibleTo;
 
-      if (visibleTo === 'all') {
-        item.style.display = 'block';
-      } else if (!role) {
-        item.style.display = 'none';
-      } else if (adminRole === 'Super Admin') {
-        item.style.display = 'block';
-      } else if (role === adminRole) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const role = item.dataset.role;
+    const visibleTo = item.dataset.visibleTo;
+
+    // ✅ Super Admin sees everything
+    if (adminRole === 'Super Admin') {
+      item.style.display = 'block';
+    }
+    // ✅ Show shared links (Dashboard, Logout, etc.)
+    else if (visibleTo === 'all') {
+      item.style.display = 'block';
+    }
+    // ✅ Show only their own role links
+    else if (role === adminRole) {
+      item.style.display = 'block';
+    }
+    // ❌ Hide everything else
+    else {
+      item.style.display = 'none';
+    }
+  });
+    
 
     fetch('getCertificates.php')
       .then(res => res.json())
@@ -119,3 +123,19 @@ function logout() {
     sessionStorage.removeItem("isAdmin");
     window.location.href = 'AdminLogin.html';
 }
+
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    const content = document.getElementById("printArea").innerHTML;
+    const printWindow = window.open("", "", "height=800,width=1000");
+
+    printWindow.document.write('<html><head><title>Print Table</title>');
+    printWindow.document.write('<style>table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left}</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(content);
+    printWindow.document.write('</body></html>');
+
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  });

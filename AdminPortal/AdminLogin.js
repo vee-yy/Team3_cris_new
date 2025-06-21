@@ -14,12 +14,12 @@ const loginBtn = document.getElementById('loginBtn');
 
 const ADMIN_ACCOUNTS = [
   { username: "LebronSuperAdmin", password: "Admin@123", role: "Super Admin" },
-  { username: "CarlcashierAdmin", password: "Cashier@123", role: "Cashier" },
-  { username: "SophiaVerifierAdmin", password: "Verify@123", role: "Verifying Officer" },
-  { username: "BillyHDOAdmin", password: "Help@123", role: "Help Desk Officer" },
-  { username: "YasmineRCAdmin", password: "Receive@123", role: "Receiving Clerk" },
-  { username: "TinaReportsAdmin", password: "Report@123", role: "Report Officer" },
-  { username: "DerekSignatoryAdmin", password: "Sign@123", role: "Document Signatory Officer" },
+  { username: "SheytNasanAkinSalamin", password: "Cashier@123", role: "Cashier" },
+  { username: "BurecheVerify", password: "Verify@123", role: "Verifying Officer" },
+  { username: "DusbiLabasna", password: "Help@123", role: "Help Desk Officer" },
+  { username: "WalangReceive", password: "Receive@123", role: "Receiving Clerk" },
+  { username: "PuroPaReportSabay3", password: "Report@123", role: "Report Officer" },
+  { username: "JoskopoSignatory", password: "Sign@123", role: "Document Signatory Officer" },
   { username: "AnnaReleaseAdmin", password: "Release@123", role: "Releasing Officer" }
 ];
 
@@ -38,23 +38,54 @@ loginForm.addEventListener('submit', function (e) {
         acc => acc.username === username && acc.password === passwordValue
         );
 
-        if (user) {
-        successMessage.style.display = 'block';
-        successMessage.textContent = "Login successful! Redirecting...";
+if (user) {
+  console.log("Matched user:", user); // Debug log
 
-        // Store session info
-        sessionStorage.setItem("isAdmin", "true");
-        localStorage.setItem("adminUsername", user.username);
-        localStorage.setItem("adminRole", user.role);
+  sessionStorage.setItem("isAdmin", "true");
+  sessionStorage.setItem("adminUsername", user.username);
+  sessionStorage.setItem("adminRole", user.role);
 
-        setTimeout(() => {
-            window.location.href = 'AdminDashboard.html';
-        }, 1000);
+  // Debug log to verify storage
+  console.log("Saved username:", sessionStorage.getItem('adminUsername'));
+  console.log("Saved role:", sessionStorage.getItem('adminRole'));
 
-        return;
-        }
+  successMessage.style.display = 'block';
+  successMessage.textContent = "Login successful! Redirecting...";
+
+ setTimeout(() => {
+  switch (user.role) {
+    case "Super Admin":
+      window.location.href = 'AdminDashboard.html';
+      break;
+    case "Cashier":
+      window.location.href = '../Roles/CashierAdmin.html';
+      break;
+    case "Verifying Officer":
+      window.location.href = '../Roles/VerifierAdmin.html';
+      break;
+    case "Help Desk Officer":
+      window.location.href = '../Roles/HelpAdmin.html';
+      break;
+    case "Receiving Clerk":
+      window.location.href = '../Roles/ReceivingAdmin.html';
+      break;
+    case "Report Officer":
+      window.location.href = '../Roles/ReportsAdmin.html';
+      break;
+    case "Document Signatory Officer":
+      window.location.href = '../Roles/SignatoryAdmin.html';
+      break;
+    case "Releasing Officer":
+      window.location.href = '../Roles/ReleasingAdmin.html';
+      break;
+    default:
+      window.location.href = 'AdminDashboard.html';
+  }
+}, 1000);
 
 
+  return;
+}
     errorMessage.style.display = 'block';
     errorMessage.textContent = "Incorrect username or password.";
     loginBtn.disabled = false;

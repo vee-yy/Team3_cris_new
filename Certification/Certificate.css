@@ -181,8 +181,7 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-top: 100px;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
 }
 
 .card{
@@ -1150,7 +1149,7 @@ label[for="birthOrientation"] {
 /* Walk-in Application Styles */
 .walk-in-container {
   text-align: center;
-  margin: 20px 0;
+  margin: 50px 0;
 }
 
 .walk-in-btn {
