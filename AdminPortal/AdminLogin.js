@@ -70,7 +70,7 @@ if (user) {
       window.location.href = '../Roles/ReceivingAdmin.html';
       break;
     case "Report Officer":
-      window.location.href = '../Roles/ReportsAdmin.html';
+      window.location.href = '../Roles/ReportAdmin.html';
       break;
     case "Document Signatory Officer":
       window.location.href = '../Roles/SignatoryAdmin.html';

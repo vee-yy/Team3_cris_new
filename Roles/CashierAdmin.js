@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // ✅ Load and display admin username & role
+  //  Load and display admin username & role
   const username = sessionStorage.getItem('adminUsername');
   const role = sessionStorage.getItem('adminRole');
 
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const roleDisplay = document.getElementById('adminRole');
   if (role && roleDisplay) roleDisplay.textContent = role;
 
-  // ✅ Modal open/close
+  //  Modal open/close
   window.openPaymentModal = function () {
     document.getElementById('paymentModal').style.display = 'flex';
   };
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('paymentModal').style.display = 'none';
   };
 
-  // ✅ Calculate change
+  //  Calculate change
   const amountTendered = document.getElementById('amountTendered');
   if (amountTendered) {
     amountTendered.addEventListener('input', function () {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ✅ Payment option toggle
+  //  Payment option toggle
   const paymentOptions = document.querySelectorAll('.payment-option');
   paymentOptions.forEach(option => {
     option.addEventListener('click', function () {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ✅ Close modal when clicking outside
+  //  Close modal when clicking outside
   const paymentModal = document.getElementById('paymentModal');
   if (paymentModal) {
     window.addEventListener('click', function (event) {

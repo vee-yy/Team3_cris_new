@@ -526,12 +526,23 @@ tr:hover {
 }
 
 .view-all {
+  padding: 8px 14px;
   text-decoration: none;
   font-weight: 500;
-  color: var(--primary);
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.view-all:hover{
+  background-color: #3979b5;
+}
 #exportBtn {
+  font-weight: 500;
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
@@ -567,7 +578,7 @@ tr:hover {
     </a>
 
     <!-- Shared/Dashboard -->
-    <!-- Receiving Clerk -->
+    <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
     <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
@@ -593,7 +604,7 @@ tr:hover {
     </a>
 
     <!-- Report Admin -->
-    <a href="#" class="menu-item" data-role="Report Officer">
+    <a href="../Roles/ReportAdmin.html" class="menu-item" data-role="Report Officer">
       <i class="fas fa-chart-line mr-2"></i> Reports
     </a>
 

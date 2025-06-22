@@ -546,7 +546,8 @@ tr:hover {
     <a href="#" class="menu-item" data-role="Super Admin">
       <i class="fas fa-database mr-2"></i> All Transactions
     </a>
-    <!-- Shared/Dashboard -->
+    <!-- Shared/Dashboard -->    
+     <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
     <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
@@ -567,12 +568,12 @@ tr:hover {
       <i class="fas fa-file mr-2"></i> Document Releasing
     </a>
     <!-- Report Admin -->
-    <a href="#" class="menu-item" data-role="Report Officer">
+    <a href="../Roles/ReportAdmin.html" class="menu-item" data-role="Report Officer">
       <i class="fas fa-chart-line mr-2"></i> Reports
     </a>
     <!-- Help Desk -->
     <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
-      <i class="fas fa-headset mr-2"></i> Inquiries
+      <i class="fas fa-comments mr-2"></i> Inquiries
     </a>
     <!-- Shared/Logout -->
     <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
@@ -651,6 +652,7 @@ tr:hover {
           <option>Pending</option>
           <option>In Progress</option>
           <option>Resolved</option>
+          <option>Escalated</option>
         </select>
         <select>
           <option>All Channels</option>

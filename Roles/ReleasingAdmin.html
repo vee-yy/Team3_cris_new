@@ -169,170 +169,171 @@ body {
   background-color: var(--warning-color);
 }
 
-        
-        /* Document Tables */
-        .document-section {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 1.2rem;
-            color: var(--dark-color);
-        }
-        
-        .btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: #f8f9fa;
-            color: var(--dark-color);
-            font-weight: 600;
-        }
-        
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-ready {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        
-        .status-released {
-            background-color: #d1ecf1;
-            color: #0c5460;
-        }
-        
-        .action-btn {
-            padding: 5px 10px;
-            margin-right: 5px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        
-        .btn-view {
-            background-color: #d1ecf1;
-            color: #0c5460;
-        }
-        
-        .btn-release {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        
-        .btn-cancel {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        
-        /* Search and Filter */
-        .search-filter {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        
-        .search-box {
-            flex: 1;
-            margin-right: 10px;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .filter-box select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-        }
-        
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .dashboard-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                width: 70px;
-                overflow: hidden;
-            }
-            
-            .sidebar-header h2, .menu-item span {
-                display: none;
-            }
-            
-            .menu-item {
-                justify-content: center;
-                padding: 15px 0;
-            }
-            
-            .menu-item i {
-                margin-right: 0;
-                font-size: 1.2rem;
-            }
-        }
+/* Document Tables */
+.document-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: var(--dark-color);
+}
+
+.btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f9fa;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-ready {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-released {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.action-btn {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-view {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.btn-release {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.btn-cancel {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Search and Filter */
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.filter-box select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    width: 70px;
+    overflow: hidden;
+  }
+
+  .sidebar-header h2,
+  .menu-item span {
+    display: none;
+  }
+
+  .menu-item {
+    justify-content: center;
+    padding: 15px 0;
+  }
+
+  .menu-item i {
+    margin-right: 0;
+    font-size: 1.2rem;
+  }
+}
+
 #exportBtn {
   display: inline-flex;
   align-items: center;
@@ -361,178 +362,173 @@ font-size: 13px;
     </style>
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2 class="Dashboard">Admin Dashboard</h2>
-            <p id="adminInfo"></p>
-        </div>
-        <nav class="sidebar-nav">
-            <!-- Super Admin Only -->
-            <a href="#" class="menu-item" data-role="Super Admin">
-                <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-            </a>
-            <a href="#" class="menu-item" data-role="Super Admin">
-                <i class="fas fa-database mr-2"></i> All Transactions
-            </a>
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h2 class="Dashboard">Admin Dashboard</h2>
+    <p id="adminInfo"></p>
+  </div>
+  <!--SUPER ADMIN ONLY -->
+  <nav class="sidebar-nav">
+    <a href="#" class="menu-item" data-role="Super Admin">
+      <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
+    </a>
 
-            <!-- Shared/Dashboard -->
-            <!-- Receiving Clerk -->
-            <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
-                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
-            </a>
+    <a href="#" class="menu-item" data-role="Super Admin">
+      <i class="fas fa-database mr-2"></i> All Transactions
+    </a>
 
-            <!-- Verifying Officer -->
-            <a href="VerifierAdmin.html" class="menu-item" data-role="Verifying Officer">
-                <i class="fas fa-tasks mr-2"></i> Validate Requests
-            </a>
+    <!--SHARED DASHBOARD -->
+    <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+      <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+    </a>
 
-            <!-- Cashier Admin -->
-            <a href="../Roles/CashierAdmin.html" class="menu-item" data-role="Cashier">
-                <i class="fas fa-money-check-alt mr-2"></i> Transaction Payments
-            </a>
+    <!--VERIFIER ADMIN -->
+    <a href="../Roles/VerifierAdmin.html" class="menu-item" data-role="Verifying Officer">
+      <i class="fas fa-tasks mr-2"></i> Validate Requests
+    </a>
 
-            <!-- Document Signatory Officer -->
-            <a href="../Roles/SignatoryAdmin.html" class="menu-item" data-role="Document Signatory Officer">
-                <i class="fas fa-signature mr-2"></i> Signature
-            </a>
+    <!--CASHIER/TRANSACTION ADMIN -->
+    <a href="../Roles/CashierAdmin.html" class="menu-item" data-role="Cashier">
+      <i class="fas fa-money-check-alt mr-2"></i> Transaction Payments
+    </a>
 
-            <!-- Releasing Officer -->
-            <a href="../Roles/ReleasingAdmin.html" class="menu-item" data-role="Releasing Officer">
-                <i class="fas fa-file mr-2"></i> Document Releasing
-            </a>
+    <!--SIGNATORY ADMIN -->
+    <a href="../Roles/SignatoryAdmin.html" class="menu-item" data-role="Document Signatory Officer">
+      <i class="fas fa-signature mr-2"></i> Signature
+    </a>
 
-            <!-- Report Admin -->
-            <a href="#" class="menu-item" data-role="Report Officer">
-                <i class="fas fa-chart-line mr-2"></i> Reports
-            </a>
+    <!--RELEASING ADMIN -->
+    <a href="../Roles/ReleasingAdmin.html" class="menu-item" data-role="Releasing Officer">
+      <i class="fas fa-file mr-2"></i> Document Releasing
+    </a>
 
-            <!-- Help Desk -->
-            <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
-                <i class="fas fa-comments mr-2"></i> Inquiries
-            </a>
+    <!--REPORT/ ADMIN -->
+    <a href="../Roles/ReportAdmin.html" class="menu-item" data-role="Report Officer">
+      <i class="fas fa-chart-line mr-2"></i> Reports
+    </a>
 
-            <!-- Shared/Logout -->
-            <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
-                <i class="fas fa-sign-out-alt mr-2"></i> Log out
-            </button>
-        </nav>
-    </aside>
+    <!--HELP ADMIN -->
+    <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
 
-    <main class="main-content">
-      <div class="top-nav">
+        <!--SHARED DASHBOARD -->
+    <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
+      <i class="fas fa-sign-out-alt mr-2"></i> Log out
+    </button>
+  </nav>
+</aside>
+
+<main class="main-content">
+  <div class="top-nav">
     <h1 class="page-title">
       <i class="fas fa-money-check-alt mr-2"></i> Document Releasing Dashboard
     </h1>
-        <div class="user-info">
-        <div id="adminUsername" class="name"></div>
-        <div id="adminRole" class="role"></div>
-        
-        </div> 
-        
-            </div>
+    <div class="user-info">
+      <div id="adminUsername" class="name"></div>
+      <div id="adminRole" class="role"></div>
+    </div>
+  </div>
 
-        <div class="dashboard-cards">
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Documents Ready for Release</div>
-                        <div class="card-value"></div>
-                    </div>
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Claimant Pickups Today</div>
-                        <div class="card-value"></div>
-                    </div>
-                    <div class="card-icon bg-success">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">LBC Courier Pickups Today</div>
-                        <div class="card-value"></div>
-                    </div>
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                </div>
-            </div>
+  <div class="dashboard-cards">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Documents Ready for Release</div>
+          <div class="card-value"></div>
         </div>
-
-        <div class="search-filter">
-            <div class="search-box">
-                <input type="text" placeholder="Search documents by reference number, claimant name...">
-            </div>
-            <div class="filter-box">
-                <select>
-                    <option value="all">All Documents</option>
-                    <option value="ready">Ready for Release</option>
-                    <option value="released">Released</option>
-                    <option value="courier">LBC Courier</option>
-                    <option value="claimant">Claimant Pickup</option>
-                </select>
-            </div>
+        <div class="card-icon bg-primary">
+          <i class="fas fa-file-alt"></i>
         </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Claimant Pickups Today</div>
+          <div class="card-value"></div>
+        </div>
+        <div class="card-icon bg-success">
+          <i class="fas fa-user-check"></i>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">LBC Courier Pickups Today</div>
+          <div class="card-value"></div>
+        </div>
+        <div class="card-icon bg-warning">
+          <i class="fas fa-truck"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="document-section">
-            <div class="section-header">
-                <h3 class="section-title">Documents Ready for Release</h3>
-        <div class="Export-wrapper">
+  <div class="search-filter">
+    <div class="search-box">
+      <input type="text" placeholder="Search documents by reference number, claimant name...">
+    </div>
+    <div class="filter-box">
+      <select>
+        <option value="all">All Documents</option>
+        <option value="ready">Ready for Release</option>
+        <option value="released">Released</option>
+        <option value="courier">LBC Courier</option>
+        <option value="claimant">Claimant Pickup</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="document-section">
+    <div class="section-header">
+      <h3 class="section-title">Documents Ready for Release</h3>
+      <div class="Export-wrapper">
         <button type="button" id="exportBtn">
           <i class="fas fa-print"></i> Export
         </button>
-        </div>
-                </div>
-                <div id="printArea">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ref. No.</th>
-                        <th>Document Type</th>
-                        <th>Claimant Name</th>
-                        <th>Release Method</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        </div>
+      </div>
+    </div>
+    <div id="printArea">
+      <table>
+        <thead>
+          <tr>
+            <th>Ref. No.</th>
+            <th>Document Type</th>
+            <th>Claimant Name</th>
+            <th>Release Method</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 
-        <div class="document-section">
-            <div class="section-header">
-                <h3 class="section-title">Recently Released Documents</h3>
-<button class="btn btn-primary" id="exportExcelBtn">Export to Excel</button>
-            </div>
-            <div id="printArea">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ref. No.</th>
-                        <th>Document Type</th>
-                        <th>Claimant Name</th>
-                        <th>Release Method</th>
-                        <th>Status</th>
-                        <th>Released By</th>
-                        <th>Date Released</th>
-                    </tr>
-                </thead>
-            </table>
-            </div>
-        </div>
-    </main>
+  <div class="document-section">
+    <div class="section-header">
+      <h3 class="section-title">Recently Released Documents</h3>
+      <button class="btn btn-primary" id="exportExcelBtn">Export to Excel</button>
+    </div>
+    <div id="printArea">
+      <table>
+        <thead>
+          <tr>
+            <th>Ref. No.</th>
+            <th>Document Type</th>
+            <th>Claimant Name</th>
+            <th>Release Method</th>
+            <th>Status</th>
+            <th>Released By</th>
+            <th>Date Released</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</main>
 
-    <script src="ReleasingAdmin.js"></script>
-    <script src="rolesidebarVisibility.js"></script>
-</body>
-</html>
+<script src="ReleasingAdmin.js"></script>
+<script src="rolesidebarVisibility.js"></script>
