@@ -439,188 +439,177 @@ tr:hover {
 </style>
 </head>
 <body>
-    <!-- Original Sidebar (unchanged) -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2 class="Dashboard">Admin Dashboard</h2>
-            <p id="adminInfo">Verifying Officer: John Doe</p>
-        </div>
-        <nav class="sidebar-nav">
-            <!-- Super Admin Only -->
-            <a href="#" class="menu-item" data-role="Super Admin">
-                <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-            </a>
-            <a href="#" class="menu-item" data-role="Super Admin">
-                <i class="fas fa-database mr-2"></i> All Transactions
-            </a>
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h2 class="Dashboard">Admin Dashboard</h2>
+    <p id="adminInfo"></p>
+  </div>
+  <nav class="sidebar-nav">
 
-            <!-- Shared/Dashboard -->
-            <!-- Receiving Clerk -->
-            <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
-                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
-            </a>
+    <!-- Super Admin Only -->
+    <a href="#" class="menu-item" data-role="Super Admin">
+      <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
+    </a>
+    <a href="#" class="menu-item" data-role="Super Admin">
+      <i class="fas fa-database mr-2"></i> All Transactions
+    </a>
 
-            <!-- Verifying Officer -->
-            <a href="../Roles/VerifierAdmin.html" class="menu-item" data-role="Verifying Officer">
-                <i class="fas fa-tasks mr-2"></i> Validate Requests
-            </a>
+    <!-- Shared/Dashboard -->
+    <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+      <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+    </a>
 
-            <!-- Cashier Admin -->
-            <a href="../Roles/CashierAdmin.html" class="menu-item" data-role="Cashier">
-                <i class="fas fa-money-check-alt mr-2"></i> Transaction Payments
-            </a>
+    <!-- Verifying Officer -->
+    <a href="../Roles/VerifierAdmin.html" class="menu-item" data-role="Verifying Officer">
+      <i class="fas fa-tasks mr-2"></i> Validate Requests
+    </a>
 
-            <!-- Document Signatory Officer -->
-            <a href="../Roles/SignatoryAdmin.html" class="menu-item" data-role="Document Signatory Officer">
-                <i class="fas fa-signature mr-2"></i> Signature
-            </a>
+     <!-- Cashier Admin -->
+    <a href="../Roles/CashierAdmin.html" class="menu-item" data-role="Cashier">
+      <i class="fas fa-money-check-alt mr-2"></i> Transaction Payments
+    </a>
 
-            <!-- Releasing Officer -->
-            <a href="ReleasingAdmin.html" class="menu-item" data-role="Releasing Officer">
-                <i class="fas fa-file mr-2"></i> Document Releasing
-            </a>
+    <!-- Document Signatory Officer -->
+    <a href="../Roles/SignatoryAdmin.html" class="menu-item" data-role="Document Signatory Officer">
+      <i class="fas fa-signature mr-2"></i> Signature
+    </a>
 
-            <!-- Report Admin -->
-            <a href="#" class="menu-item" data-role="Report Officer">
-                <i class="fas fa-chart-line mr-2"></i> Reports
-            </a>
+    <!-- Releasing Officer -->
+    <a href="../Roles/ReleasingAdmin.html" class="menu-item" data-role="Releasing Officer">
+      <i class="fas fa-file mr-2"></i> Document Releasing
+    </a>
 
-            <!-- Help Desk -->
-            <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
-                <i class="fas fa-comments mr-2"></i> Inquiries
-            </a>
+    <!-- Report Admin -->
+    <a href="../Roles/ReportAdmin.html" class="menu-item" data-role="Report Officer">
+      <i class="fas fa-chart-line mr-2"></i> Reports
+    </a>
 
-            <!-- Shared/Logout -->
-            <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
-                <i class="fas fa-sign-out-alt mr-2"></i> Log out
-            </button>
-        </nav>
-    </aside>
+    <!-- Help Desk -->
+    <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="header">
+
+    <!-- Shared/Logout -->
+    <button onclick="logout()" id="logout-btn" class="menu-item logout-btn" data-visible-to="all">
+      <i class="fas fa-sign-out-alt mr-2"></i> Log out
+    </button>    
+ 
+  </nav>
+</aside>
+
+<div class="main-content">
+  <div class="header">
     <h1 class="page-title">
       <i class="fas fa-check-circle"></i> Document Verification Dashboard
     </h1>
-        <div class="user-info">
-        <div id="adminUsername" class="name"></div><br>
-        <div id="adminRole" class="role"></div>
-        
-        </div> 
-        
-        </div>
-
-        <!-- Dashboard Cards -->
-        <div class="dashboard-cards">
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-tasks"></i>
-                </div>
-                <h3>Pending Verification</h3>
-                <p>24 documents awaiting your review</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Verified Today</h3>
-                <p>8 documents verified</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>Average Processing Time</h3>
-                <p>12 minutes per document</p>
-            </div>
-        </div>
-
-        <!-- Validation Requests Section -->
-        <div class="validation-section">
-            <div class="section-header">
-                <h2><i class="fas fa-tasks mr-2"></i> Documents Pending Verification</h2>
-                <div class="search-filter">
-                
-<div class="print-wrapper">
-<button type="button" id="exportBtn">
-  <i class="fas fa-print"></i> Export
-</button>
-</div>                
-                         <select>
-                        <option>All Types</option>
-                        <option>Certificates</option>
-                        <option>Licenses</option>
-                        <option>Permits</option>
-                    </select>
-                </div>
-            </div>
-<div id="printArea">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Document ID</th>
-                        <th>Applicant Name</th>
-                        <th>Document Type</th>
-                        <th>Date Submitted</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+    <div class="user-info">
+      <div id="adminUsername" class="name"></div>
+      <div id="adminRole" class="role"></div>
     </div>
+  </div>
 
-    <!-- Inspection Modal -->
-    <div class="modal" id="inspectionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Document Verification: DOC-2023-00145</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="document-details">
-                    <div class="detail-group">
-                        <h4>Applicant Information</h4>
-                        <p><strong>Name:</strong></p>
-                        <p><strong>Contact:</strong></p>
-                        <p><strong>Address:</strong></p>
-                    </div>
-                    <div class="detail-group">
-                        <h4>Document Information</h4>
-                        <p><strong>Type:</strong></p>
-                        <p><strong>Date Submitted:</strong> </p>
-                        <p><strong>Reference No:</strong></p>
-                    </div>
-                </div>
-
-                <div class="document-preview">
-                    <h4>Document Content</h4>
-                    <div class="preview-container">
-                        <img src="MGA FILES NI USER TO CARL LIKE YUNG PICTURE/ID NA IPANG VEVERIFY" alt="Document Preview">
-                    </div>
-                    <p>.</p>
-                </div>
-
-                <div class="document-preview">
-                    <h4>Attached Supporting Documents</h4>
-                    <div class="preview-container">
-                        <img src="MGA FILES NI USER TO CARL LIKE YUNG PICTURE/ID NA IPANG VEVERIF" alt="Supporting Document">
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button class="btn btn-outline"><i class="fas fa-download"></i> Download</button>
-                        <button class="btn btn-outline"><i class="fas fa-expand"></i> Fullscreen</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-success" onclick="verifyDocument()"><i class="fas fa-check"></i> Mark as Verified</button>
-            </div>
-        </div>
+  <div class="dashboard-cards">
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-tasks"></i></div>
+      <h3>Pending Verification</h3>
+      <p>24 documents awaiting your review</p>
     </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Verified Today</h3>
+      <p>8 documents verified</p>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-clock"></i></div>
+      <h3>Average Processing Time</h3>
+      <p>12 minutes per document</p>
+    </div>
+  </div>
 
-    <script src="Verifier.js"></script>
-    <script src="rolesidebarVisibility.js"></script>
-</body>
-</html>
+  <div class="validation-section">
+    <div class="section-header">
+      <h2><i class="fas fa-tasks mr-2"></i> Documents Pending Verification</h2>
+      <div class="search-filter">
+        <div class="print-wrapper">
+          <button type="button" id="exportBtn">
+            <i class="fas fa-print"></i> Export
+          </button>
+        </div>
+        <select>
+          <option>All Types</option>
+          <option>Certificates</option>
+          <option>Licenses</option>
+          <option>Permits</option>
+        </select>
+      </div>
+    </div>
+    <div id="printArea">
+      <table>
+        <thead>
+          <tr>
+            <th>Document ID</th>
+            <th>Applicant Name</th>
+            <th>Document Type</th>
+            <th>Date Submitted</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal" id="inspectionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Document Verification: DOC-2023-00145</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="document-details">
+          <div class="detail-group">
+            <h4>Applicant Information</h4>
+            <p><strong>Name:</strong></p>
+            <p><strong>Contact:</strong></p>
+            <p><strong>Address:</strong></p>
+          </div>
+          <div class="detail-group">
+            <h4>Document Information</h4>
+            <p><strong>Type:</strong></p>
+            <p><strong>Date Submitted:</strong></p>
+            <p><strong>Reference No:</strong></p>
+          </div>
+        </div>
+
+        <div class="document-preview">
+          <h4>Document Content</h4>
+          <div class="preview-container">
+            <img src="MGA FILES NI USER TO CARL LIKE YUNG PICTURE/ID NA IPANG VEVERIFY" alt="Document Preview">
+          </div>
+        </div>
+
+        <div class="document-preview">
+          <h4>Attached Supporting Documents</h4>
+          <div class="preview-container">
+            <img src="MGA FILES NI USER TO CARL LIKE YUNG PICTURE/ID NA IPANG VEVERIF" alt="Supporting Document">
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="btn btn-outline"><i class="fas fa-download"></i> Download</button>
+            <button class="btn btn-outline"><i class="fas fa-expand"></i> Fullscreen</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-success" onclick="verifyDocument()">
+          <i class="fas fa-check"></i> Mark as Verified
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Verifier.js"></script>
+  <script src="rolesidebarVisibility.js"></script>
+</div>
