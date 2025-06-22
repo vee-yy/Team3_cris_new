@@ -31,7 +31,7 @@ body{
 .header-main {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 0;
 }
 
 
@@ -40,10 +40,27 @@ body{
 }
 
 .logo {
-  height: 80px;
+  height: 70px;
+  margin-left: 5px;
+}
+.title-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: 10px;
 }
 
+.title-container h1 {
+  font-size: 20px;
+  margin: 0;
+  color: white;
+}
+
+.title-container .tagline {
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  margin-top: 5px;
+}
 
 
 .nav-links {
