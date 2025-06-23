@@ -25,19 +25,15 @@
     const role = item.dataset.role;
     const visibleTo = item.dataset.visibleTo;
 
-    // ✅ Super Admin sees everything
     if (adminRole === 'Super Admin') {
       item.style.display = 'block';
     }
-    // ✅ Show shared links (Dashboard, Logout, etc.)
     else if (visibleTo === 'all') {
       item.style.display = 'block';
     }
-    // ✅ Show only their own role links
     else if (role === adminRole) {
       item.style.display = 'block';
     }
-    // ❌ Hide everything else
     else {
       item.style.display = 'none';
     }
@@ -78,7 +74,7 @@ function renderTable() {
 
 const canApprove = ['Super Admin', 'Verifying Officer'].includes(adminRole);
 const canReject = ['Super Admin', 'Verifying Officer'].includes(adminRole);
-const canView = true; // everyone can view
+const canView = true;
 
 row.innerHTML = `
   <td>${item.id}</td>

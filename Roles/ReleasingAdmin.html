@@ -334,7 +334,8 @@ tr:hover {
   }
 }
 
-#exportBtn {
+#exportBtn,
+#exportBtn2 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -353,6 +354,9 @@ tr:hover {
   background-color: #004080;
 }
 
+#exportBtn2:hover {
+  background-color: #004080;
+}
 
 #adminInfo{
 color: rgba(163, 170, 175, 0.866);
@@ -369,17 +373,14 @@ font-size: 13px;
   </div>
   <!--SUPER ADMIN ONLY -->
   <nav class="sidebar-nav">
-    <a href="#" class="menu-item" data-role="Super Admin">
+    <!-- Super & System Admin Only -->
+    <a href="../Roles/SystemAdmin.html" class="menu-item" data-role="System Admin">
       <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-    </a>
-
-    <a href="#" class="menu-item" data-role="Super Admin">
-      <i class="fas fa-database mr-2"></i> All Transactions
     </a>
 
     <!--SHARED DASHBOARD -->
     <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
-    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="Receiving Clerk">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
 
@@ -411,6 +412,10 @@ font-size: 13px;
     <!--HELP ADMIN -->
     <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
       <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
+    <!-- Live chat Support -->
+    <a href="https://dashboard.tawk.to" target="_blank" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-headset mr-2"></i> Live Chat Console
     </a>
 
         <!--SHARED DASHBOARD -->
@@ -475,7 +480,7 @@ font-size: 13px;
       <select>
         <option value="all">All Documents</option>
         <option value="ready">Ready for Release</option>
-        <option value="released">Released</option>
+        <option value="released">To Receive</option>
         <option value="courier">LBC Courier</option>
         <option value="claimant">Claimant Pickup</option>
       </select>
@@ -510,9 +515,13 @@ font-size: 13px;
   <div class="document-section">
     <div class="section-header">
       <h3 class="section-title">Recently Released Documents</h3>
-      <button class="btn btn-primary" id="exportExcelBtn">Export to Excel</button>
+      <div class="Export-wrapper">
+        <button type="button" id="exportBtn2">
+          <i class="fas fa-print"></i> Export
+        </button>
+      </div>
     </div>
-    <div id="printArea">
+    <div id="printArea2">
       <table>
         <thead>
           <tr>

@@ -7,6 +7,11 @@ const username = sessionStorage.getItem('adminUsername');
 
   const roleDisplay = document.getElementById('adminRole');
   if (role && roleDisplay) roleDisplay.textContent = role;
+
+  document.getElementById('certificateTypeFilter').addEventListener('change', function () {
+    console.log('Filter by type:', this.value);
+  });
+
  });
 
 function openModal() {

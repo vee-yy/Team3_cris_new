@@ -31,21 +31,29 @@ function logout() {
   window.location.href = '../AdminPortal/AdminLogin.html';
 }
 
-  document.getElementById("exportBtn").addEventListener("click", function () {
-    const content = document.getElementById("printArea").innerHTML;
-    const printWindow = window.open("", "", "height=800,width=1000");
+function printDiv(divId) {
+  const content = document.getElementById(divId).innerHTML;
+  const printWindow = window.open("", "", "height=800,width=1000");
 
-    printWindow.document.write('<html><head><title>Print Table</title>');
-    printWindow.document.write('<style>table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left}</style>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(content);
-    printWindow.document.write('</body></html>');
+  printWindow.document.write('<html><head><title>Print Table</title>');
+  printWindow.document.write('<style>table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left}</style>');
+  printWindow.document.write('</head><body>');
+  printWindow.document.write(content);
+  printWindow.document.write('</body></html>');
 
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
-  });
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+}
+
+document.getElementById("exportBtn").addEventListener("click", function () {
+  printDiv("printArea");
+});
+
+document.getElementById("exportBtn2").addEventListener("click", function () {
+  printDiv("printArea2");
+});
 
   document.getElementById('exportExcelBtn').addEventListener('click', function () {
   var table = document.querySelector('table'); 

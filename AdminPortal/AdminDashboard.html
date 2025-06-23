@@ -18,17 +18,14 @@
   </div>
   <nav class="sidebar-nav">
 
-    <!-- Super Admin Only -->
-    <a href="#" class="menu-item" data-role="Super Admin">
+    <!-- Super & System Admin Only -->
+    <a href="../Roles/SystemAdmin.html" class="menu-item" data-role="System Admin">
       <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-    </a>
-    <a href="#" class="menu-item" data-role="Super Admin">
-      <i class="fas fa-database mr-2"></i> All Transactions
     </a>
 
     <!-- Shared/Dashboard -->
     <!-- Receiving Clerk -->
-    <a href="AdminDashboard.html" class="menu-item" data-visible-to="all">
+    <a href="AdminDashboard.html" class="menu-item" data-visible-to="Receiving Clerk">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
 
@@ -62,6 +59,10 @@
       <i class="fas fa-comments mr-2"></i> Inquiries
     </a>
 
+    <a href="https://dashboard.tawk.to" target="_blank" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-headset mr-2"></i> Live Chat Console
+    </a>
+
     <!-- Shared/Logout -->
     <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
       <i class="fas fa-sign-out-alt mr-2"></i> Log out
@@ -90,6 +91,7 @@
             <option value="death">Death Certificates</option>
             <option value="cenomar">Cenomar Certificates</option>
             <option value="cenodeath">Cenodeath Certificates</option>
+            <option value="correction">Document Correction </option>
           </select>
         </div>
         
@@ -99,10 +101,6 @@
             <option value="all">All Status</option>            
             <option value="pending">Pending</option>
             <option value="received">Received</option>
-            <option value="processing">Processing</option>
-            <option value="approved">Approved</option>
-            <option value="released">Released</option>
-            <option value="rejected">Rejected</option>
           </select>
         </div>
         

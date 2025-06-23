@@ -80,6 +80,12 @@
             </div>
         </div>
     </section>
+
+      <div class="section">
+    <h1 id="homepage_title"></h1>
+    <div id="homepage_content"></div>
+  </div>
+
 <!--
 <section class="appointment" id="appointment" >
   <div class="container">
@@ -528,5 +534,21 @@
 </button>
 
     <script src="style.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fields = JSON.parse(sessionStorage.getItem('contentFields')) || [];
+
+      fields.forEach(f => {
+        const el = document.getElementById(f.name);
+        if (el) {
+          el.innerHTML = f.type === 'boolean'
+            ? (f.value === 'true' ? 'Enabled' : 'Disabled')
+            : f.value;
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

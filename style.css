@@ -760,8 +760,8 @@ footer {
 /* Feedback Trigger Button */
 .feedback-trigger {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 115px;
+  right: 25px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -798,6 +798,16 @@ footer {
     right: 20px;
   }
 }
+/* SYSADMIN HOMEPAGE STYLES - START */
+.section{
+    text-align: center;
+    color: #0055a5;
+    font-size: 2.0rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+/* Homepage Section Styles - END */
 
 /* Appointment Section Styles */
 .appointment {
@@ -826,7 +836,6 @@ footer {
     background: #f7b543;
     margin: 15px auto 0;
 }
-
 
 .appointment .subtitle {
   text-align: center;

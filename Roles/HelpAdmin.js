@@ -60,3 +60,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+Tawk_API = Tawk_API || {};
+Tawk_API.onChatStarted = function () {
+  console.log("Chat started!");
+  
+  // 🔔 Play a sound
+  const audio = new Audio("https://notificationsounds.com/notification-sounds/event-538/download/mp3");
+  audio.play();
+
+  // 🔴 Show badge (example)
+  const badge = document.createElement('div');
+  badge.innerText = '🔴 New Chat';
+  badge.style.position = 'fixed';
+  badge.style.top = '10px';
+  badge.style.right = '10px';
+  badge.style.backgroundColor = '#ff4757';
+  badge.style.color = 'white';
+  badge.style.padding = '10px 15px';
+  badge.style.borderRadius = '5px';
+  badge.style.zIndex = 9999;
+  document.body.appendChild(badge);
+
+  setTimeout(() => badge.remove(), 10000); // remove after 10s
+};
+

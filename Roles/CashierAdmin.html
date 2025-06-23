@@ -557,6 +557,36 @@ tr:hover {
   background-color: #004080;
 }
 
+.search-filter {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  flex: 1 1 250px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.filter-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+#statusFilter{
+  width: 110px;
+}
+
 
 </style>
 </head>
@@ -570,16 +600,13 @@ tr:hover {
   <nav class="sidebar-nav">
 
     <!-- Super Admin Only -->
-    <a href="#" class="menu-item" data-role="Super Admin">
+    <a href="../Roles/SystemAdmin.html" class="menu-item" data-role="System Admin">
       <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-    </a>
-    <a href="#" class="menu-item" data-role="Super Admin">
-      <i class="fas fa-database mr-2"></i> All Transactions
     </a>
 
     <!-- Shared/Dashboard -->
     <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
-    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="Receiving Clerk">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
 
@@ -611,6 +638,11 @@ tr:hover {
     <!-- Help Desk -->
     <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
       <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
+
+    <!-- Live chat Support/ HELP DESK/ SUPER ADMIN -->
+    <a href="https://dashboard.tawk.to" target="_blank" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-headset mr-2"></i> Live Chat Console
     </a>
 
     <!-- Shared/Logout -->
@@ -685,6 +717,26 @@ tr:hover {
     <div class="section-header">
       <h2 class="section-title">Recent Transactions</h2>
       <div class="section-actions">
+      <div class="search-filter">
+        <div class="filter-group">
+          <select class="filter-select" id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="in-process">In Process</option>
+            <option value="paid">Paid</option>
+            <option value="pending_payment">Pending Payment</option>
+          </select>
+        </div>
+        <select>
+        <option value="all">All Certificate Types</option>
+        <option value="birth">Birth Certificate</option>
+        <option value="marriage">Marriage Certificate</option>
+        <option value="death">Death Certificate</option>
+        <option value="cenomar">CENOMAR</option>
+        <option value="cenodeath">CENODEATH</option>
+        <option value="correction">Document Correction | R.A 9048 </option>
+        </select>
+      </div>
+
         <a href="#" class="view-all">View All</a>
         <div class="Export-wrapper">
         <button type="button" id="exportBtn">
@@ -700,7 +752,7 @@ tr:hover {
           <tr>
             <th>Transaction ID</th>
             <th>Client</th>
-            <th>Service</th>
+            <th>Certificate Type</th>
             <th>Amount</th>
             <th>Date</th>
             <th>Status</th>

@@ -230,6 +230,7 @@ body {
 .stat-card.death { border-top-color: #2c3e50; }
 .stat-card.cenomar { border-top-color: #9b59b6; }
 .stat-card.cenodeath { border-top-color: #1abc9c; }
+.stat-card.correction { border-top-color: #acbc1a; }
 .stat-header {
   display: flex;
   justify-content: space-between;
@@ -645,17 +646,14 @@ tr:hover {
   </div>
   <nav class="sidebar-nav">
 
-    <!-- Super Admin Only -->
-    <a href="#" class="menu-item" data-role="Super Admin">
+    <!-- Super & System Admin Only -->
+    <a href="../Roles/SystemAdmin.html" class="menu-item" data-role="System Admin">
       <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
-    </a>
-    <a href="#" class="menu-item" data-role="Super Admin">
-      <i class="fas fa-database mr-2"></i> All Transactions
     </a>
 
     <!-- Shared/Dashboard -->
     <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
-    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="Receiving Clerk">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
 
@@ -689,6 +687,10 @@ tr:hover {
       <i class="fas fa-comments mr-2"></i> Inquiries
     </a>
 
+    <!-- Live chat Support -->
+    <a href="https://dashboard.tawk.to" target="_blank" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-headset mr-2"></i> Live Chat Console
+    </a>
 
     <!-- Shared/Logout -->
     <button onclick="logout()" id="logout-btn" class="menu-item logout-btn" data-visible-to="all">
@@ -731,9 +733,8 @@ tr:hover {
       <label class="filter-label">Status</label>
       <select class="filter-select" id="statusFilter">
         <option value="all">All Statuses</option>
-        <option value="received">Received</option>
         <option value="in-process">In Process</option>
-        <option value="released">Released</option>
+        <option value="released">For Signatory</option>
       </select>
     </div>
     <div class="filter-group">
@@ -852,6 +853,28 @@ tr:hover {
         </div>
       </div>
     </div>
+
+      <div class="stat-card correction">
+      <div class="stat-header">
+        <div class="stat-title">Document Correction</div>
+          <i class="fas fa-edit stat-icon" style="color:#acbc1a;"></i>
+      </div>
+      <div class="stat-values">
+        <div class="stat-value">
+          <div class="stat-number received"></div>
+          <div class="stat-label">Received</div>
+        </div>
+        <div class="stat-value">
+          <div class="stat-number in-process"></div>
+          <div class="stat-label">In Process</div>
+        </div>
+        <div class="stat-value">
+          <div class="stat-number released"></div>
+          <div class="stat-label">Released</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 <!-- Documents Table -->
 <div class="documents-table-container">

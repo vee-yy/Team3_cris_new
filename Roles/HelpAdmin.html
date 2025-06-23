@@ -539,16 +539,14 @@ tr:hover {
     <p id="adminInfo"></p>
   </div>
   <nav class="sidebar-nav">
-    <!-- Super Admin Only -->
-    <a href="#" class="menu-item" data-role="Super Admin">
+    <!-- Super & System Admin Only -->
+    <a href="../Roles/SystemAdmin.html" class="menu-item" data-role="System Admin">
       <i class="fas fa-users-cog mr-2"></i> Manage Admin Users
     </a>
-    <a href="#" class="menu-item" data-role="Super Admin">
-      <i class="fas fa-database mr-2"></i> All Transactions
-    </a>
+
     <!-- Shared/Dashboard -->    
      <!-- APPLICATION, PROCESSING, AND INTAKE Clerk -->
-    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="all">
+    <a href="../AdminPortal/AdminDashboard.html" class="menu-item" data-visible-to="Receiving Clerk">
       <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
     </a>
     <!-- Verifying Officer -->
@@ -574,6 +572,10 @@ tr:hover {
     <!-- Help Desk -->
     <a href="../Roles/HelpAdmin.html" class="menu-item" data-role="Help Desk Officer">
       <i class="fas fa-comments mr-2"></i> Inquiries
+    </a>
+    <!-- Live chat Support -->
+    <a href="https://dashboard.tawk.to" target="_blank" class="menu-item" data-role="Help Desk Officer">
+      <i class="fas fa-headset mr-2"></i> Live Chat Console
     </a>
     <!-- Shared/Logout -->
     <button onclick="logout()" class="menu-item logout-btn" data-visible-to="all">
