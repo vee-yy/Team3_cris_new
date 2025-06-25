@@ -1,14 +1,13 @@
 window.ADMIN_ACCOUNTS = [
-  { username: "LebronSuperAdmin", password: "Admin@123", role: "Super Admin" },
+  { username: "LebronSuperAdmin", password: "TaloLakers@123", role: "Super Admin" },
   { username: "SheytNasanAkinSalamin", password: "Cashier@123", role: "Cashier" },
   { username: "BurecheVerify", password: "Verify@123", role: "Verifying Officer" },
   { username: "DusbiLabasna", password: "Help@123", role: "Help Desk Officer" },
   { username: "WalangReceive", password: "Receive@123", role: "Receiving Clerk" },
-  { username: "PuroPaReportSabay3", password: "Report@123", role: "Report Officer" },
+  { username: "ReportersNotebook", password: "Report@123", role: "Report Officer" },
   { username: "JoskopoSignatory", password: "Sign@123", role: "Document Signatory Officer" },
   { username: "AnnaReleaseAdmin", password: "Release@123", role: "Releasing Officer" },
   { username: "SisTeam", password: "System@123", role: "System Admin" }
-
 ];
 
 if (document.getElementById('loginForm')) {
@@ -46,7 +45,7 @@ if (user) {
   sessionStorage.setItem("adminUsername", user.username);
   sessionStorage.setItem("adminRole", user.role);
 
-  // 🔁 Update all users' status and lastActive
+  // Update all users' status and lastActive
   const users = JSON.parse(sessionStorage.getItem('users') || '[]');
   const updatedUsers = users.map(u => {
     if (u.username === user.username) {
@@ -80,7 +79,7 @@ if (user) {
           case "Help Desk Officer":
             window.location.href = '../Roles/HelpAdmin.html'; break;
           case "Receiving Clerk":
-            window.location.href = '../Roles/ReceivingAdmin.html'; break;
+            window.location.href = 'AdminDashboard.html'; break;
           case "Report Officer":
             window.location.href = '../Roles/ReportAdmin.html'; break;
           case "Document Signatory Officer":

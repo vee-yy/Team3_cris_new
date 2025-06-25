@@ -304,9 +304,141 @@ for (const input of inputs) {
 
   return true;
 }
+ let uploadedFiles = [];
+
+function handleFileSelection(input) {
+  const MAX_SIZE = 500 * 1024 * 1024; // 500MB total limit
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB per file
+
+  if (input.files && input.files.length > 0) {
+    for (let i = 0; i < input.files.length; i++) {
+      const file = input.files[i];
+
+      if (file.size > MAX_FILE_SIZE) {
+        Swal.fire({
+          icon: 'error',
+          title: 'File Too Large',
+          text: `${file.name} is ${formatFileSize(file.size)} (max 100MB per file)`,
+          confirmButtonColor: '#3498db'
+        });
+        continue;
+      }
+
+      const fileExists = uploadedFiles.some(
+        existingFile => existingFile.name === file.name && existingFile.size === file.size
+      );
+
+      if (!fileExists) uploadedFiles.push(file);
+    }
+  }
+
+  updateFilePreview();
+  updateInputFiles();
+}
+
+function updateFilePreview() {
+  const fileList = document.getElementById('fileList');
+  const totalSizeElement = document.getElementById('totalSize');
+  let totalSize = 0;
+
+  fileList.innerHTML = '';
+
+  if (uploadedFiles.length === 0) {
+    fileList.innerHTML = '<div class="no-files">No files selected yet</div>';
+    totalSizeElement.textContent = '0 MB';
+    return;
+  }
+
+  uploadedFiles.forEach((file, index) => {
+    totalSize += file.size;
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+
+    let iconClass = 'fa-file-alt';
+    if (file.type.startsWith('image/')) iconClass = 'fa-file-image';
+    else if (file.type === 'application/pdf') iconClass = 'fa-file-pdf';
+    else if (file.type.includes('word') || file.name.endsWith('.doc') || file.name.endsWith('.docx')) {
+      iconClass = 'fa-file-word';
+    }
+
+    fileItem.innerHTML = `
+      <i class="fas ${iconClass} file-icon"></i>
+      <div class="file-info">
+        <div class="file-name">${file.name}</div>
+        <div class="file-size">${formatFileSize(file.size)}</div>
+      </div>
+      <i class="fas fa-times remove-file" data-index="${index}"></i>
+    `;
+
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const previewContent = document.createElement('div');
+        previewContent.innerHTML = `<img src="${e.target.result}" class="preview-image" alt="Preview">`;
+        fileItem.appendChild(previewContent);
+      };
+      reader.readAsDataURL(file);
+    } else if (file.type === 'application/pdf') {
+      const previewContent = document.createElement('div');
+      previewContent.className = 'pdf-preview';
+      previewContent.innerHTML = `
+        <i class="fas fa-file-pdf pdf-preview-icon"></i>
+        <div class="pdf-preview-text">PDF Document</div>
+      `;
+      fileItem.appendChild(previewContent);
+    }
+
+    fileList.appendChild(fileItem);
+  });
+
+  totalSizeElement.textContent = formatFileSize(totalSize);
+
+  document.querySelectorAll('.remove-file').forEach(button => {
+    button.addEventListener('click', function() {
+      const index = parseInt(this.getAttribute('data-index'));
+      removeFile(index);
+    });
+  });
+}
+
+function removeFile(index) {
+  uploadedFiles.splice(index, 1);
+  updateFilePreview();
+  updateInputFiles();
+}
+
+function updateInputFiles() {
+  const input = document.getElementById('documentUpload');
+  const dataTransfer = new DataTransfer();
+  uploadedFiles.forEach(file => dataTransfer.items.add(file));
+  input.files = dataTransfer.files;
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' bytes';
+  else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  else return (bytes / 1048576).toFixed(1) + ' MB';
+}
+
+document.getElementById('prevBtn').addEventListener('click', function() {
+  console.log('Previous button clicked');
+});
+
+document.getElementById('nextStep2Btn').addEventListener('click', function() {
+  if (uploadedFiles.length === 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'No Files Selected',
+      text: 'Please upload at least one file',
+      confirmButtonColor: '#3498db'
+    });
+    return;
+  }
+  console.log('Next button clicked with files:', uploadedFiles);
+});
 
 function validateStep2() {
-  const idImageInput = document.getElementById('idImage');
+  const idImageInput = document.getElementById('documentUpload');
   if (!idImageInput || !idImageInput.files || idImageInput.files.length === 0) {
     Swal.fire({
       icon: 'error',
@@ -361,11 +493,11 @@ nextBtn.addEventListener('click', () => {
   } else if (currentStep === 1) {
     if (validateStep2()) {
       currentStep = 2;
-      generateSummary(); // ← add this
+      generateSummary(); 
       showStep(currentStep);
     }
   } else if (currentStep === 2) {
-    currentStep = 3;  // move to final step
+    currentStep = 3;  
     showStep(currentStep);
   }
 });

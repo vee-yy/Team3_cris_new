@@ -866,10 +866,34 @@
 
 <!-- Step 2 -->
 <div class="form-step" data-step="1">
-  <label for="uploadID">Upload a valid ID:</label>
-  <input type="file" id="idImage" name="uploadID" accept="image/*,application/pdf" required>
+  <div class="upload-container">
+    <label for="documentUpload" class="file-upload-label">
+      Upload Supporting Documents (PDF, DOC, JPG, PNG):
+    </label>
+    <label for="documentUpload" class="upload-button">
+      <i class="fas fa-cloud-upload-alt"></i> Choose Files
+    </label>
+    <input type="file" id="documentUpload" class="file-input"
+           accept="application/pdf,.doc,.docx,image/*" multiple
+           onchange="handleFileSelection(this)">
+
+    <div class="file-preview-container" id="filePreviewContainer">
+      <div class="file-preview-header">
+        <span>Selected Files</span>
+        <span id="totalSize">0 MB</span>
+      </div>
+      <div class="file-list" id="fileList">
+        <div class="no-files">No files selected yet</div>
+      </div>
+    </div>
+
+    <div class="file-requirements">
+      <p><strong>Note:</strong> Total limit 100MB.</p>
+    </div>
+  </div>
+
   <button type="button" id="prevBtn"><i class="fas fa-arrow-left mr-2"></i> Previous</button>
-  <button type="button" id="nextStep2Btn">Next  <i class="fas fa-arrow-right ml-2"></i> </button> <!-- ✅ unique ID -->
+  <button type="button" id="nextStep2Btn">Next  <i class="fas fa-arrow-right ml-2"></i> </button> 
 </div>
 
 <!-- Step 3 -->
