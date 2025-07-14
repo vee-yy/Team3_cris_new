@@ -1,5 +1,5 @@
 function openAboutPopup() {
-window.location.href = '../AboutUs/AboutUs.html';
+window.location.href = 'AboutUs/AboutUs.html';
 }
 function generateAppointmentID() {
   const timestamp = Date.now().toString(36); // base36 timestamp
